@@ -149,7 +149,7 @@ def tx_wallet():
     loger(msg)
     
     
-def showmsg(t,m):
+def showmsg(m):
     #purl = "https://api.day.app/"+xmly_bark_cookie+"/"+t+"/"+m
     #response = requests.post(purl)
     #print(response.text)
@@ -369,7 +369,7 @@ def start():
      tx_signday()
      tx_task(getRD_ck(index),getVD_ck(index))
      tx_wallet()
-     showmsg(tt,result)
+     showmsg(result)
      
      
      
