@@ -105,7 +105,7 @@ def tx_task(rck,vck):
     
 def tx_read(rck):
     body ='event=article_read'
-    response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?'+rck,headers=headers,data=body)
+    response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?mac=020000000000&'+rck,headers=headers,data=body)
     print(response.json())
     obj=response.json()
     msg='阅读:'+obj['info']+'✅'
@@ -114,7 +114,7 @@ def tx_read(rck):
       
 def tx_video(vck):
     body ='event=video_read&extend=%7B%22video_id%22%3A%2220200622V0CGJH00%22%7D'
-    response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?'+vck,headers=headers,data=body)
+    response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?mac=020000000000&'+vck,headers=headers,data=body)
     obj1=response.json()
     msg='视频:'+obj1['info']+'✅'
     loger(msg)
