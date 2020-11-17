@@ -123,7 +123,7 @@ def tx_video(vck):
 def tx_openred1(rck):
     body ='redpack_type=article&activity_id=stair_redpack_chajian'
     
-    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?'+rck,headers=headers,data=body)
+    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+rck,headers=headers,data=body)
 
     obj2=response.json()
     msg='阅读红包'+obj2['info']+'✅'
@@ -132,7 +132,7 @@ def tx_openred1(rck):
 def tx_openred2(vck):
     body ='redpack_type=video&activity_id=stair_redpack_chajian'
     
-    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?'+vck,headers=headers,data=body)
+    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+vck,headers=headers,data=body)
     #print(response.text)
     obj=response.json()
     msg='视频红包'+obj['info']+'✅'
