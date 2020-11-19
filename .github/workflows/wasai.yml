@@ -1,0 +1,29 @@
+name: wasai
+
+on:
+  schedule:
+    - cron: '*/10 * * * * '
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./wasai/requirements.txt 
+        
+      - name: 'electric' 
+        run: python3 ./wasai/wasai.py 
+        env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            WETCARD_WASAI_COOKIE: ${{ secrets.WETCARD_WASAI_COOKIE }}
+            
