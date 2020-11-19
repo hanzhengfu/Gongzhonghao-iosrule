@@ -27,9 +27,8 @@ def login(ck):
       #print(login.text)
       obj=json.loads(login.text)
       if(json.dumps(login.text).find(r'\u8bf7\u5148\u767b\u5f55')>=0):
-           print()
            pushmsg('wasai','please get your cookies')
-           exit()
+           return
       msg= f'''
       【账号】{obj['user']['name']}
       【现金】{obj['user']['cash']/100}元
@@ -57,7 +56,7 @@ def rent(ck):
           print(login.text)
           if(json.dumps(login.text).find(r'\u5c1a\u672a\u89e3\u9501')>=0):
               print('停止。。。')
-              exit()
+              break
           time.sleep(5)
           getHelpFriend(ck,id)
           speed(ck,id)
@@ -126,7 +125,7 @@ def levelup(ck):
         print(login.text)
         if(json.dumps(login.text).find(r'\u5c1a\u672a\u89e3\u9501')>=0):
               print('停止。。。')
-              exit()
+              break
         login=taskurl(f'''electric/done?electricid={str(id)}&''',ck)
         print(login.text)
    except Exception as e:
@@ -163,9 +162,9 @@ def check(st,flag,list):
       j+=1
       print(f'''>>>>>>>>>【账号{str(j)}开始】''')
       if count:
-        login(wetcard_wasai_cookie)
-        rent(wetcard_wasai_cookie)
-        levelup(wetcard_wasai_cookie)
+        login(count)
+        rent(count)
+        levelup(count)
 
 
 
