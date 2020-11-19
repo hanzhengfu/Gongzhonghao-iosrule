@@ -19,7 +19,98 @@ wetcard_wasailist=[]
 
 headers={"Accept": "*/*","Accept-Encoding": "br, gzip, deflate","Accept-Language": "zh-cn","Connection": "keep-alive","Content-Type": "application/json","Host": "minigame.ucpopo.com","Referer": "https://servicewechat.com/wx02dc0dd2497b3b80/21/page-frame.html","User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.14(0x17000e2e) NetType/4G Language/zh_CN",}
 
+def login(ck):
+   print('登录')
+   msg=''
+   try:
+      login=taskurl('login?',ck)
+      #print(login.text)
+      obj=json.loads(login.text)
+      if(json.dumps(login.text).find(r'\u8bf7\u5148\u767b\u5f55')>=0):
+           print()
+           pushmsg('wasai','please get your cookies')
+           exit()
+      msg= f'''
+      【账号】{obj['user']['name']}
+      【现金】{obj['user']['cash']/100}元
+      【提现】{obj['user']['totalWithdraw']/100}元
+      【能量】{obj['user']['digiccy']}点
+      【加速卡】{obj['user']['speedcard']}张
+      '''
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
+def rent(ck):
+   _plant={
+  	1:'多肉',
+  	2:'吊兰',
+  	3:'仙人掌',
+  	4:'冬青'
+  }
+  
+   msg=''
+   try:
+      for id in range(1,21):
+          print(f'''开始收集{id}能量''')
+          login=taskurl(f'''machine/rent?machineid={str(id)}&''',ck)
+          print(login.text)
+          if(json.dumps(login.text).find(r'\u5c1a\u672a\u89e3\u9501')>=0):
+              print('停止。。。')
+              exit()
+          time.sleep(5)
+          getHelpFriend(ck,id)
+          speed(ck,id)
+          take(ck,id)
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
 
+def getHelpFriend(ck,id):
+   msg=''
+   try:
+       print(f'''\n开始助力''')
+       login=taskurl('machine/getHelpFriend?',ck)
+       print(login.text)
+       obj=json.dumps(login.text)
+       if obj.find('helpid')<0:
+          return
+       obj=json.loads(login.text)
+       helpid=obj['helpid']
+       print('助力码',helpid)
+       if helpid:
+          login=taskurl(f'''machine/help?machineid={str(id)}&helpid={helpid}&''',ck)
+          print(login.text)
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
+
+
+def speed(ck,id):
+   msg=''
+   try:
+       print(f'''\n开始加速''')
+       login=taskurl(f'''machine/speed?machineid={str(id)}&''',ck)
+       print(login.text)
+      
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
+
+def take(ck,id):
+   msg=''
+   try:
+       print(f'''\n收货''')
+       login=taskurl(f'''machine/take?machineid={str(id)}&''',ck)
+       print(login.text)
+      
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
 
 def levelup(ck):
    msg=''
@@ -33,10 +124,9 @@ def levelup(ck):
         print(f'''\n{electric[id]}升级中...''')
         login=taskurl(f'''electric/levelup?electricid={str(id)}&''',ck)
         print(login.text)
-        if(json.dumps(login.text).find('\u8bf7\u5148\u767b\u5f55')>=0):
-           print()
-           pushmsg('wasai','please get your cookies')
-           exit()
+        if(json.dumps(login.text).find(r'\u5c1a\u672a\u89e3\u9501')>=0):
+              print('停止。。。')
+              exit()
         login=taskurl(f'''electric/done?electricid={str(id)}&''',ck)
         print(login.text)
    except Exception as e:
@@ -73,8 +163,10 @@ def check(st,flag,list):
       j+=1
       print(f'''>>>>>>>>>【账号{str(j)}开始】''')
       if count:
-         levelup(count)
-   
+        login(wetcard_wasai_cookie)
+        rent(wetcard_wasai_cookie)
+        levelup(wetcard_wasai_cookie)
+
 
 
 def pushmsg(title,txt,bflag=1,wflag=1):
@@ -100,7 +192,6 @@ def loger(m):
    print(m)
    global result
    result +=m
-   
    
 
 
