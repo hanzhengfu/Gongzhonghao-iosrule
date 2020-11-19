@@ -227,7 +227,7 @@ def loger(m):
 def start():
    
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
-   check(wetcard_wasai_cookie,'WETCACARD_WASAI_COOKIE',wetcard_wasailist)
+   check(wetcard_wasai_cookie,'WETCARD_WASAI_COOKIE',wetcard_wasailist)
 
 def main_handler(event, context):
     return start()
