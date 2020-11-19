@@ -78,6 +78,7 @@ def tx_task(rck,vck):
           tx2=0
     print(msg)
     loger(msg)
+    print('开包条件:',tx1,tx2)
     if tx1>0:
          print('阅读红包')
          tx_openred1(rck)
