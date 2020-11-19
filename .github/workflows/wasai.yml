@@ -20,7 +20,7 @@ jobs:
       - name: 'Install requirements'
         run: pip install -r ./wasai/requirements.txt 
         
-      - name: 'electric' 
+      - name: 'wasai' 
         run: python3 ./wasai/wasai.py 
         env:
             DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
