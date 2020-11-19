@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import timeit
 import os
 import re
 import urllib
@@ -40,6 +41,20 @@ def login(ck):
       msg=str(e)
       print(msg)
    loger(msg)
+   
+def sign_takeAward(ck):
+   msg=''
+   try:
+       print(f'''\n签到''')
+       login=taskurl(f'''sign/takeAward?''',ck)
+       print(login.text)
+      
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
+
+   
 def rent(ck):
    _plant={
   	1:'多肉',
@@ -140,6 +155,17 @@ def taskurl(func,ck):
 	
 
 
+def clock(func):
+    def clocked(*args, **kwargs):
+        t0 = timeit.default_timer()
+        result = func(*args, **kwargs)
+        elapsed = timeit.default_timer() - t0
+        name = func.__name__
+        arg_str = ', '.join(repr(arg) for arg in args)
+        print('[🔔运行完毕用时%0.8fs] %s(%s) -> %r' % (elapsed, name, arg_str, result))
+        return result
+    return clocked
+    
 
 def check(st,flag,list):
    result=''
@@ -163,8 +189,13 @@ def check(st,flag,list):
       print(f'''>>>>>>>>>【账号{str(j)}开始】''')
       if count:
         login(count)
+        sign_takeAward(count)
         rent(count)
         levelup(count)
+   print('its over')
+
+
+
 
 
 
@@ -192,8 +223,14 @@ def loger(m):
    global result
    result +=m
    
+@clock
+def start():
+   
+   print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
+   check(wetcard_wasai_cookie,'WETCACARD_WASAI_COOKIE',wetcard_wasailist)
 
+def main_handler(event, context):
+    return start()
 
-
-print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
-check(wetcard_wasai_cookie,'WETCACARD_WASAI_COOKIE',wetcard_wasailist)
+if __name__ == '__main__':
+       start()
