@@ -23,13 +23,16 @@ headers={"Accept": "*/*","Accept-Encoding": "br, gzip, deflate","Accept-Language
 def login(ck):
    print('登录')
    msg=''
+   islog=True
    try:
       login=taskurl('login?',ck)
       #print(login.text)
       obj=json.loads(login.text)
       if(json.dumps(login.text).find(r'\u8bf7\u5148\u767b\u5f55')>=0):
+           print('please get your cookies')
            pushmsg('wasai','please get your cookies')
-           return
+           islog=False
+           return islog
       msg= f'''
       【账号】{obj['user']['name']}
       【现金】{obj['user']['cash']/100}元
@@ -37,10 +40,12 @@ def login(ck):
       【能量】{obj['user']['digiccy']}点
       【加速卡】{obj['user']['speedcard']}张
       '''
+      loger(msg)
+      return islog
    except Exception as e:
       msg=str(e)
       print(msg)
-   loger(msg)
+ 
    
 def sign_takeAward(ck):
    msg=''
@@ -48,7 +53,6 @@ def sign_takeAward(ck):
        print(f'''\n签到''')
        login=taskurl(f'''sign/takeAward?''',ck)
        print(login.text)
-      
    except Exception as e:
       msg=str(e)
       print(msg)
@@ -188,10 +192,13 @@ def check(st,flag,list):
       j+=1
       print(f'''>>>>>>>>>【账号{str(j)}开始】''')
       if count:
-        login(count)
+        if (not login(count)):
+            continue
         sign_takeAward(count)
         rent(count)
         levelup(count)
+      else:
+       	   print(f'''【账号{str(j)}ck为空❌】''')
    print('its over')
 
 
