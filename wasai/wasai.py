@@ -18,7 +18,7 @@ wetcard_wasailist=[]
 
 
 
-headers={"Accept": "*/*","Accept-Encoding": "br, gzip, deflate","Accept-Language": "zh-cn","Connection": "keep-alive","Content-Type": "application/json","Host": "minigame.ucpopo.com","Referer": "https://servicewechat.com/wx02dc0dd2497b3b80/21/page-frame.html","User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.14(0x17000e2e) NetType/4G Language/zh_CN",}
+headers={"Accept": "*/*","Accept-Encoding": "br, gzip, deflate","Accept-Language": "zh-cn","Content-Type": "application/json",  "Connection": "close","Host": "minigame.ucpopo.com","Referer": "https://servicewechat.com/wx02dc0dd2497b3b80/21/page-frame.html","User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.14(0x17000e2e) NetType/4G Language/zh_CN",}
 
 def login(ck):
    print('登录')
@@ -26,25 +26,30 @@ def login(ck):
    islog=True
    try:
       login=taskurl('login?',ck)
-      #print(login.text)
+      print(login.text)
       obj=json.loads(login.text)
       if(json.dumps(login.text).find(r'\u8bf7\u5148\u767b\u5f55')>=0):
            print('please get your cookies')
            pushmsg('wasai','please get your cookies')
            islog=False
            return islog
-      msg= f'''
+   except Exception as e:
+          msg=str(e)
+          print(msg)
+   try:
+       msg= f'''
       【账号】{obj['user']['name']}
       【现金】{obj['user']['cash']/100}元
       【提现】{obj['user']['totalWithdraw']/100}元
       【能量】{obj['user']['digiccy']}点
       【加速卡】{obj['user']['speedcard']}张
       '''
-      loger(msg)
-      return islog
+       loger(msg)
+       islog=True
+       return islog
    except Exception as e:
-      msg=str(e)
-      print(msg)
+         msg=str(e)
+         print(msg)
  
    
 def sign_takeAward(ck):
@@ -76,7 +81,7 @@ def rent(ck):
           if(json.dumps(login.text).find(r'\u5c1a\u672a\u89e3\u9501')>=0):
               print('停止。。。')
               break
-          time.sleep(5)
+          time.sleep(1)
           getHelpFriend(ck,id)
           speed(ck,id)
           take(ck,id)
@@ -154,7 +159,12 @@ def levelup(ck):
 
 def taskurl(func,ck):
    url=f'''https://minigame.ucpopo.com/wasai/{func}appName=wasai&env=release&ver=1.0.9&{ck}'''
+   requests.adapters.DEFAULT_RETRIES = 5
+   s = requests.session()
+   s.keep_alive = False
+   
    taskres = requests.get(url,headers=headers)
+   
    return taskres
 	
 
@@ -190,6 +200,8 @@ def check(st,flag,list):
    j=0
    for count in list:
       j+=1
+      #if j!=2:
+         #continue
       print(f'''>>>>>>>>>【账号{str(j)}开始】''')
       if count:
         if (not login(count)):
@@ -197,6 +209,7 @@ def check(st,flag,list):
         sign_takeAward(count)
         rent(count)
         levelup(count)
+        time.sleep(3)
       else:
        	   print(f'''【账号{str(j)}ck为空❌】''')
    print('its over')
