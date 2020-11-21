@@ -85,7 +85,7 @@ def tx_task(rck,vck):
          time.sleep(1)
     if tx2>0:
          print('视频红包')
-         tx_openred2(vck)
+         tx_openred2(rck)
          time.sleep(1)
     try:
        if obj['data']['award'][0]['opened'] != obj['data']['award'][0]['total'] and obj['data']['award'][0]['opened'] <6:
