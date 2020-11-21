@@ -26,7 +26,7 @@ def login(ck):
    islog=True
    try:
       login=taskurl('login?',ck)
-      print(login.text)
+      #print(login.text)
       obj=json.loads(login.text)
       if(json.dumps(login.text).find(r'\u8bf7\u5148\u767b\u5f55')>=0):
            print('please get your cookies')
