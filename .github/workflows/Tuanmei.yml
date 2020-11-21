@@ -1,0 +1,29 @@
+name: Tuanmei
+
+on:
+  schedule:
+    - cron: '15 13,22,0 * * * '
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./tuanmei/requirements.txt 
+        
+      - name: 'Tuanmei' 
+        run: python3 ./tuanmei/tuanmei.py 
+        env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            IOS_MT_BODY: ${{ secrets.IOS_MT_BODY }}
+            IOS_MT_COOKIE: ${{ secrets.IOS_MT_COOKIE }}
