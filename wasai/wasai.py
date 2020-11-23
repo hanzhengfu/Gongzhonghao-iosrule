@@ -9,7 +9,6 @@ from datetime import datetime
 from dateutil import tz
 
 
-
 result=''
 djj_bark_cookie=''
 djj_sever_jiang=''
@@ -44,13 +43,31 @@ def login(ck):
       【能量】{obj['user']['digiccy']}点
       【加速卡】{obj['user']['speedcard']}张
       '''
+       if(obj['user']['digiccy']>10000):
+         sell(obj['user']['digiccy'],ck)
        loger(msg)
        islog=True
        return islog
    except Exception as e:
          msg=str(e)
+         islog=True
+         return islog
          print(msg)
  
+ 
+ 
+def sell(dig,ck):
+   msg=''
+   try:
+       print(f'''\n兑换能量''')
+       login=taskurl(f'''digiccy/sell?num={dig}&price=0.01&''',ck)
+       print(login.text)
+   except Exception as e:
+      msg=str(e)
+      print(msg)
+   loger(msg)
+   
+   
    
 def sign_takeAward(ck):
    msg=''
@@ -158,7 +175,7 @@ def levelup(ck):
    loger(msg)
 
 def taskurl(func,ck):
-   url=f'''https://minigame.ucpopo.com/wasai/{func}appName=wasai&env=release&ver=1.0.9&{ck}'''
+   url=f'''https://minigame.ucpopo.com/wasai/{func}appName=wasai&env=release&ver=1.0.11&{ck}'''
    requests.adapters.DEFAULT_RETRIES = 5
    s = requests.session()
    s.keep_alive = False
@@ -183,6 +200,8 @@ def clock(func):
 
 def check(st,flag,list):
    result=''
+   global djj_bark_cookie
+   global djj_sever_jiang
    if "DJJ_BARK_COOKIE" in os.environ:
      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
    if "DJJ_SEVER_JIANG" in os.environ:
