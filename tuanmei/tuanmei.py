@@ -91,6 +91,8 @@ def clock(func):
 
 def check(st,flag,list):
    result=''
+   global djj_bark_cookie
+   global djj_sever_jiang
    if "DJJ_BARK_COOKIE" in os.environ:
      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
    if "DJJ_SEVER_JIANG" in os.environ:
