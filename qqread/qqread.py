@@ -184,6 +184,7 @@ def all():
        clock_in()
        clock_in_video()
        treasure_box()
+       time.sleep(10)
        treasure_box_video()
        watch_video()
        read_red_day()
