@@ -20,7 +20,7 @@ jobs:
       - name: 'Install requirements'
         run: pip install -r ./qqread/requirements.txt 
         
-      - name: 'Tuanmei' 
+      - name: '公众号iosrule' 
         run: python3 ./qqread/qqread.py 
         env:
             DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
