@@ -2,7 +2,7 @@ name: wasai
 
 on:
   schedule:
-    - cron: '*/10 * * * * '
+    - cron: '*/20 * * * * '
   watch:
     types: [started]
 jobs:
