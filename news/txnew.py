@@ -1,3 +1,6 @@
+
+
+
 import requests
 import json
 import time
@@ -41,8 +44,20 @@ vcookiesList4=[]
 cmcookiesList=[]
    
 headers = {
-        'User-Agent': 'QQNews/6.1.30 (iPhone; iOS 12.4; Scale/2.00)','Content-Type':'application/x-www-form-urlencoded'}
-
+  "store" : "1",
+  "Accept-Encoding" : "gzip, deflate, br",
+  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
+  "Content-Type" : "application/x-www-form-urlencoded",
+  "appver" : "13.4.1_qqnews_6.2.70",
+  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
+  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
+  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
+  "Host" : "api.inews.qq.com",
+  "Referer" : "http://inews.qq.com/inews/iphone/",
+  "Accept-Language" : "zh-Hans-CN;q=1",
+  "Accept" : "*/*",
+  "qqnetwork" : "wifi"
+}
 def tx_user():
     try:
         response = requests.post('https://r.inews.qq.com/i/getUserCheckInfo?',headers=headers)
@@ -125,16 +140,16 @@ def tx_openred1(rck):
     body ='redpack_type=article&activity_id=stair_redpack_chajian'
     
     response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+rck,headers=headers,data=body)
-
+    print(response.text)
     obj2=response.json()
     msg='阅读红包'+obj2['info']+'✅'
     loger(msg)
     
-def tx_openred2(vck):
+def tx_openred2(rck):
     body ='redpack_type=video&activity_id=stair_redpack_chajian'
     
-    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+vck,headers=headers,data=body)
-    #print(response.text)
+    response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+rck,headers=headers,data=body)
+    print(response.text)
     obj=response.json()
     msg='视频红包'+obj['info']+'✅'
     loger(msg)
