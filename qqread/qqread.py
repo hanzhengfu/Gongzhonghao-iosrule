@@ -84,6 +84,7 @@ def treasure_box():
       print(msg)
 def treasure_box_video():
    msg='treasure_box_video'
+   time.sleep(31)
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/treasure_box_video',headers=headers,timeout=10)
@@ -180,12 +181,12 @@ def all():
        result+=f'''【Count】{index}'''
        user_name()
        user_coin()
+       watch_video()
        user_readtime()
        clock_in()
        clock_in_video()
-       treasure_box_video()
        treasure_box()
-       watch_video()
+       treasure_box_video()
        read_red_day()
        read_time(360)
        read_time_reward(360)
