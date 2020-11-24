@@ -43,20 +43,25 @@ rcookiesList4=[]
 vcookiesList4=[]
 cmcookiesList=[]
    
-headers = {
-  "store" : "1",
+{
   "Accept-Encoding" : "gzip, deflate, br",
-  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
-  "Content-Type" : "application/x-www-form-urlencoded",
-  "appver" : "13.4.1_qqnews_6.2.70",
-  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
-  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
-  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
+  "idfa" : "EB8686CB-8DC7-463A-95F4-93F8A9F3FD13",
   "Host" : "api.inews.qq.com",
-  "Referer" : "http://inews.qq.com/inews/iphone/",
+  "qn-sig" : "90C751A56073716051E10600CE9C1981",
+  "qqnetwork" : "wifi",
+  "store" : "1",
+  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
   "Accept-Language" : "zh-Hans-CN;q=1",
+  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
+  "Content-Type" : "application/x-www-form-urlencoded",
+  "Referer" : "http://inews.qq.com/inews/iphone/",
+  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
+  "qn-rid" : "1005_1577260C-06FB-445A-8D16-9403CE5B3E81",
   "Accept" : "*/*",
-  "qqnetwork" : "wifi"
+  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
+  "idft" : "C69F97F4-038F-44B2-823B-24A8677FEF2E",
+  "Content-Length" : "54",
+  "appver" : "13.4.1_qqnews_6.2.70"
 }
 def tx_user():
     try:
