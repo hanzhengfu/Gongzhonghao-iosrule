@@ -43,7 +43,7 @@ rcookiesList4=[]
 vcookiesList4=[]
 cmcookiesList=[]
    
-{
+headers={
   "Accept-Encoding" : "gzip, deflate, br",
   "idfa" : "EB8686CB-8DC7-463A-95F4-93F8A9F3FD13",
   "Host" : "api.inews.qq.com",
