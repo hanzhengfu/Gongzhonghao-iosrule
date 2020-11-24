@@ -378,7 +378,6 @@ def clock(func):
 @clock
 def start():
    check()
-   print(cmcookiesList)
    index=0
    for count in cmcookiesList:
      index+=1
