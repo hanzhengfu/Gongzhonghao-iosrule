@@ -1,6 +1,3 @@
-
-
-
 import requests
 import json
 import time
@@ -9,8 +6,6 @@ import os
 import random
 from datetime import datetime
 from dateutil import tz
-
-
 
 
 result=''
@@ -43,29 +38,15 @@ rcookiesList4=[]
 vcookiesList4=[]
 cmcookiesList=[]
 
-header={
-  "Accept-Encoding" : "gzip, deflate, br",
-  "idfa" : "EB8686CB-8DC7-463A-95F4-93F8A9F3FD13",
-  "Host" : "api.inews.qq.com",
-  "qn-sig" : "90C751A56073716051E10600CE9C1981",
-  "qqnetwork" : "wifi",
-  "store" : "1",
-  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
-  "Accept-Language" : "zh-Hans-CN;q=1",
-  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
-  "Content-Type" : "application/x-www-form-urlencoded",
-  "Referer" : "http://inews.qq.com/inews/iphone/",
-  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
-  "qn-rid" : "1005_1577260C-06FB-445A-8D16-9403CE5B3E81",
-  "Accept" : "*/*",
-  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
-  "idft" : "C69F97F4-038F-44B2-823B-24A8677FEF2E",
-  "Content-Length" : "54",
-  "appver" : "13.4.1_qqnews_6.2.70"
-}
+
+result=''
+
+
+
 
 headers = {
         'User-Agent': 'QQNews/6.1.30 (iPhone; iOS 12.4; Scale/2.00)','Content-Type':'application/x-www-form-urlencoded'}
+
 def tx_user():
     try:
         response = requests.post('https://r.inews.qq.com/i/getUserCheckInfo?',headers=headers)
@@ -87,10 +68,10 @@ def tx_signday():
 
    
     
-def tx_task(rck,vck):
+def tx_task(ck,rck,vck):
     try:
         response = requests.get('https://api.inews.qq.com/activity/v1/activity/info/get?activity_id=stair_redpack_chajian&'+rck,headers=headers)
-        print(response.json())
+        #print(response.json())
         obj=response.json()
         tx1 = obj['data']['award'][0]['openable']
         tx2 = obj['data']['award'][1]['openable']
@@ -104,11 +85,11 @@ def tx_task(rck,vck):
     print('开包条件:',tx1,tx2)
     if tx1>0:
          print('阅读红包')
-         tx_openred1(rck)
+         tx_openred1(ck,rck)
          time.sleep(1)
     if tx2>0:
          print('视频红包')
-         tx_openred2(rck)
+         tx_openred2(ck,rck)
          time.sleep(1)
     try:
        if obj['data']['award'][0]['opened'] != obj['data']['award'][0]['total'] and obj['data']['award'][0]['opened'] <6:
@@ -124,13 +105,13 @@ def tx_task(rck,vck):
         msg=str(e)
         #loger(msg)
         tx_read(rck)
-        tx_video(vck)
+        tx_video(rck)
         loger(msg)
     
 def tx_read(rck):
     body ='event=article_read'
     response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?mac=020000000000&'+rck,headers=headers,data=body)
-    print(response.json())
+    print(response.text)
     obj=response.json()
     msg='阅读:'+obj['info']+'✅'
     loger(msg)
@@ -138,25 +119,64 @@ def tx_read(rck):
       
 def tx_video(vck):
     body ='event=video_read&extend=%7B%22video_id%22%3A%2220200622V0CGJH00%22%7D'
+    
     response = requests.post('https://api.inews.qq.com/event/v1/user/event/report?mac=020000000000&'+vck,headers=headers,data=body)
-    print(response.json())
+    print(response.text)
     obj1=response.json()
     msg='视频:'+obj1['info']+'✅'
     loger(msg)
  
     
-def tx_openred1(rck):
+def tx_openred1(ck,rck):
     body ='redpack_type=article&activity_id=stair_redpack_chajian'
-    
+    header={
+  "Accept-Encoding" : "gzip, deflate, br",
+  "idfa" : "EB8686CB-8DC7-463A-95F4-93F8A9F3FD13",
+  "Host" : "api.inews.qq.com",
+  "qn-sig" : "90C751A56073716051E10600CE9C1981",
+  "qqnetwork" : "wifi",
+  "store" : "1",
+  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
+  "Accept-Language" : "zh-Hans-CN;q=1",
+  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
+  "Content-Type" : "application/x-www-form-urlencoded",
+  "Referer" : "http://inews.qq.com/inews/iphone/",
+  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
+  "qn-rid" : "1005_1577260C-06FB-445A-8D16-9403CE5B3E81",
+  "Accept" : "*/*",
+  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
+  "idft" : "C69F97F4-038F-44B2-823B-24A8677FEF2E",
+  "appver" : "13.4.1_qqnews_6.2.70"
+}
+    header['Cookie']=ck
     response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+rck,headers=header,data=body)
     print(response.text)
     obj2=response.json()
     msg='阅读红包'+obj2['info']+'✅'
     loger(msg)
     
-def tx_openred2(rck):
+def tx_openred2(ck,rck):
     body ='redpack_type=video&activity_id=stair_redpack_chajian'
-    
+    header={
+  "Accept-Encoding" : "gzip, deflate, br",
+  "idfa" : "EB8686CB-8DC7-463A-95F4-93F8A9F3FD13",
+  "Host" : "api.inews.qq.com",
+  "qn-sig" : "90C751A56073716051E10600CE9C1981",
+  "qqnetwork" : "wifi",
+  "store" : "1",
+  "deviceToken" : "e7d30dec49381a2293f7dc4a186c110a96764ee23e5313f92d1461807c2cf9eb",
+  "Accept-Language" : "zh-Hans-CN;q=1",
+  "RecentUserOperation" : "1_news_news_top,1_news_news_top,1_news_background",
+  "Content-Type" : "application/x-www-form-urlencoded",
+  "Referer" : "http://inews.qq.com/inews/iphone/",
+  "User-Agent" : "QQNews/6.2.70 (iPhone; iOS 13.4.1; Scale/3.00)",
+  "qn-rid" : "1005_1577260C-06FB-445A-8D16-9403CE5B3E81",
+  "Accept" : "*/*",
+  "devid" : "955e2c05-1622-453a-821b-8b7cbae7046c",
+  "idft" : "C69F97F4-038F-44B2-823B-24A8677FEF2E",
+  "appver" : "13.4.1_qqnews_6.2.70"
+}
+    header['Cookie']=ck
     response = requests.post('https://api.inews.qq.com/activity/v1/activity/redpack/get?mac=020000000000&'+rck,headers=header,data=body)
     print(response.text)
     obj=response.json()
@@ -341,6 +361,7 @@ def check():
          
          
 def getRD_ck(index):
+   print(index)
    tx_ck1=''
    if index==1 and len(rcookiesList1)>0:
       tx_ck1=random.choice(rcookiesList1)
@@ -384,14 +405,11 @@ def start():
    index=0
    for count in cmcookiesList:
      index+=1
-     if index!=1:
-     	  continue
      print(f'''>>>>>>>>>【账号{str(index)}开始''')
      headers['Cookie']=count
-     header['Cookie']=count
      tx_user()
      tx_signday()
-     tx_task(getRD_ck(index),getVD_ck(index))
+     tx_task(count,getRD_ck(index),getVD_ck(index))
      tx_wallet()
      showmsg(result)
      
