@@ -55,7 +55,7 @@ def user_readtime():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/me/query/page',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
       userRes=json.loads(response.text)
       if(userRes['code']==0):
          msg+=f'''💰{userRes['data']['readTime']}  min  【Readmoney】{userRes['data']['balance']['allBalance']}bean'''
@@ -71,7 +71,7 @@ def watch_video():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/watch_video',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -81,7 +81,7 @@ def treasure_box():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/treasure_box',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -91,7 +91,7 @@ def treasure_box_video():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/treasure_box_video',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -100,7 +100,7 @@ def clock_in():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/clock_in/page',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -111,14 +111,14 @@ def clock_in_video():
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/clock_in_video',headers=headers,timeout=10)
       print(response.text)
    except Exception as e:
-      msg+=str(e)
+      #msg+=str(e)
       print(msg)
 def read_red_day():
    msg='read_red_day'
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/read_book',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -128,7 +128,7 @@ def read_time(long):
    print('\n💎'+msg)
    try:
       response=requests.get(f'''https://mqqapi.reader.qq.com/mqq/red_packet/user/read_time?seconds={long}''',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -138,7 +138,7 @@ def read_time_reward(long):
    print('\n💎'+msg)
    try:
       response=requests.get(f'''https://mqqapi.reader.qq.com/mqq/red_packet/user/read_time_reward?seconds={long}''',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -147,7 +147,7 @@ def read_time_long():
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/addReadTimeWithBid?scene=1008&refer=pages%2Fbook-shelf%2Findex&bid=27693007&readTime=188447&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%222%22%3A%7B%22readTime%22%3A188447%2C%22pay_status%22%3A0%7D%7D%5D&sp=-1',headers=headers,timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -171,7 +171,7 @@ def readtimecheck():
       
    except Exception as e:
       msg+=str(e)
-   print(msg)
+      print(msg)
       
       
 def sign_in():
@@ -179,7 +179,7 @@ def sign_in():
    print('\n💎'+msg)
    try:
       response=requests.post('https://mqqapi.reader.qq.com/mqq/sign_in/user',headers=headers,data={},timeout=10)
-      print(response.text)
+      #print(response.text)
    except Exception as e:
       msg+=str(e)
       print(msg)
@@ -271,7 +271,7 @@ def pushmsg(title,txt,bflag=1,wflag=1):
       response = requests.post(purl,headers=headers,data=body)
     #print(response.text)
 def loger(m):
-   print(m)
+   #print(m)
    global result
    result +=m
 @clock
