@@ -40,7 +40,7 @@ def start():
    watch('ludingji_token',tokenlist)
    for i in range(8):
       watch('ludingji_fun'+str(i),funlist)
-   for j in (len(tklist)):
+   for j in range(len(tklist)):
        ludingji['tk']=tklist[j]
        ludingji['token']=tokenlist[j]
        for k in range(8):
