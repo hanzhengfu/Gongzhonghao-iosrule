@@ -175,7 +175,7 @@ def levelup(ck):
    loger(msg)
 
 def taskurl(func,ck):
-   url=f'''https://minigame.ucpopo.com/wasai/{func}appName=wasai&env=release&ver=1.0.11&{ck}'''
+   url=f'''https://minigame.ucpopo.com/wasai/{func}appName=wasai&env=release&ver=1.0.15&{ck}'''
    requests.adapters.DEFAULT_RETRIES = 5
    s = requests.session()
    s.keep_alive = False
