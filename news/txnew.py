@@ -85,12 +85,14 @@ def tx_task(ck,rck,vck):
     print('开包条件:',tx1,tx2)
     if tx1>0:
          print('阅读红包')
+         tx_red_info()
          tx_openred1(ck,rck)
-         time.sleep(1)
+         
     if tx2>0:
          print('视频红包')
+         tx_red_info()
          tx_openred2(ck,rck)
-         time.sleep(1)
+         
     try:
        if obj['data']['award'][0]['opened'] != obj['data']['award'][0]['total'] and obj['data']['award'][0]['opened'] <6:
        
@@ -125,8 +127,11 @@ def tx_video(vck):
     obj1=response.json()
     msg='视频:'+obj1['info']+'✅'
     loger(msg)
- 
-    
+
+def tx_red_info():
+   response = requests.get('https://api.inews.qq.com/activity/v1/user/activity/get?mac=020000000000&'+rck,headers=headers)
+   print(response.text)
+   time.sleep(2)
 def tx_openred1(ck,rck):
     body ='redpack_type=article&activity_id=stair_redpack_chajian'
     header={
