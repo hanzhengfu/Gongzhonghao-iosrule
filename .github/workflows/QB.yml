@@ -1,0 +1,30 @@
+name: QB
+
+on:
+  schedule:
+    - cron: '*/12 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./qqread/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./qqread/QB.py 
+        env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            ios_url: ${{ secrets.ios_url }}
+            ios_hd: ${{ secrets.ios_hd }}
+            ios_bt: ${{ secrets.ios_bt }}
