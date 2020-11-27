@@ -85,12 +85,12 @@ def tx_task(ck,rck,vck):
     print('开包条件:',tx1,tx2)
     if tx1>0:
          print('阅读红包')
-         tx_red_info()
+         tx_red_info(rck)
          tx_openred1(ck,rck)
          
     if tx2>0:
          print('视频红包')
-         tx_red_info()
+         tx_red_info(rck)
          tx_openred2(ck,rck)
          
     try:
@@ -128,7 +128,7 @@ def tx_video(vck):
     msg='视频:'+obj1['info']+'✅'
     loger(msg)
 
-def tx_red_info():
+def tx_red_info(rck):
    response = requests.get('https://api.inews.qq.com/activity/v1/user/activity/get?mac=020000000000&'+rck,headers=headers)
    print(response.text)
    time.sleep(2)
