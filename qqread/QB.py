@@ -6,10 +6,10 @@ import time
 import random
 import timeit
 import urllib
+from datetime import datetime
 result=''
 djj_bark_cookie=''
 djj_sever_jiang=''
-
 msg=''
 hd=''
 urllist=[]
@@ -72,9 +72,6 @@ def hand(userRes,k):
        elif(k==14):
            if(userRes['code']==0 and userRes['data'] ['hasPackage']):
              redtm=userRes['data']['readTime']
-             print(redtm)
-             print(len(urllist))
-             print(urllist[14])
              Av(urllist[14],hd,15)
        elif(k==15):
          if userRes['code']==0:
