@@ -32,6 +32,7 @@ tx_vd_cookie42=''
 vcookiesList1=[]
 rcookiesList1=[]
 vcookiesList2=[]
+rcookiesList2=[]
 rcookiesList3=[]
 vcookiesList3=[]
 rcookiesList4=[]
