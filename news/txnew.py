@@ -248,8 +248,8 @@ def check():
       tx_rd_cookie12 = os.environ["TX_RD_COOKIE12"]
    if "TX_RD_COOKIE21" in os.environ:
       tx_rd_cookie21 = os.environ["TX_RD_COOKIE21"]
-   if "TX_RD_COOKIE21" in os.environ:
-      tx_rd_cookie21 = os.environ["TX_RD_COOKIE22"]
+   if "TX_RD_COOKIE22" in os.environ:
+      tx_rd_cookie22 = os.environ["TX_RD_COOKIE22"]
    if "TX_RD_COOKIE31" in os.environ:
       tx_rd_cookie31 = os.environ["TX_RD_COOKIE31"]
    if "TX_RD_COOKIE32" in os.environ:
@@ -265,15 +265,15 @@ def check():
       tx_vd_cookie12 = os.environ["TX_VD_COOKIE12"]
    if "TX_VD_COOKIE21" in os.environ:
       tx_vd_cookie21 = os.environ["TX_VD_COOKIE21"]
-   if "TX_VD_COOKIE12" in os.environ:
+   if "TX_VD_COOKIE22" in os.environ:
       tx_vd_cookie22 = os.environ["TX_VD_COOKIE22"]
    if "TX_VD_COOKIE31" in os.environ:
       tx_vd_cookie31 = os.environ["TX_VD_COOKIE31"]
    if "TX_VD_COOKIE32" in os.environ:
       tx_vd_cookie32 = os.environ["TX_VD_COOKIE32"]
-   if "TX_VD_COOKIE11" in os.environ:
+   if "TX_VD_COOKIE41" in os.environ:
       tx_vd_cookie41 = os.environ["TX_VD_COOKIE41"]
-   if "TX_VD_COOKIE12" in os.environ:
+   if "TX_VD_COOKIE42" in os.environ:
       tx_vd_cookie42 = os.environ["TX_VD_COOKIE42"]
       
 
