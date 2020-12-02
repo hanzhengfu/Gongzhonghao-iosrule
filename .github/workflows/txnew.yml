@@ -21,7 +21,7 @@ jobs:
         run: pip install -r ./news/requirements.txt
 
       - name: 'run txnew' 
-        run: python3 ./news/txnew.py 
+        run: python3 ./news/newtx.py 
         env:
             TX_COM_COOKIE: ${{ secrets.TX_COM_COOKIE }}
             TX_RD_COOKIE11: ${{ secrets.TX_RD_COOKIE11 }}
