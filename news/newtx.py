@@ -25,6 +25,8 @@ tx_vd_cookie12=''
 tx_vd_cookie21=''
 tx_vd_cookie22=''
 tx_vd_cookie31=''
+
+
 tx_vd_cookie32=''
 tx_vd_cookie41=''
 tx_vd_cookie42=''
@@ -67,8 +69,9 @@ def tx_signCash(rck):
     loger(msg)
     
 def tx_activityid(rck):
+    print('\n   🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧')
     try:
-        response = requests.get('https://api.inews.qq.com/activity/v1/user/activity/get?mac=020000000000&'+rck,headers=headers)
+        response = requests.get('https://api.inews.qq.com/activity/v1/activity/info/get?activity_id=stair_redpack_chajian&mac=020000000000&'+rck,headers=headers)
         print(response.json())
 
     except Exception as e:
@@ -137,6 +140,7 @@ def tx_video(vck):
     loger(msg)
 
 def tx_red_info(rck):
+   print('\🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔🔔')
    response = requests.get('https://api.inews.qq.com/activity/v1/user/activity/get?mac=020000000000&'+rck,headers=headers)
    print(response.text)
    time.sleep(2)
@@ -315,7 +319,7 @@ def check():
             continue 
          rcookiesList2.append(line.strip())
          
-   if tx_rd_cookie31 and tx_rd_cookie32:
+   if tx_rd_cookie31 or tx_rd_cookie32:
       for line in tx_rd_cookie31.split('\n'):
          if not line:
             continue 
@@ -353,7 +357,7 @@ def check():
             continue 
          vcookiesList2.append(line.strip())
          
-   if tx_vd_cookie31 and tx_vd_cookie32:
+   if tx_vd_cookie31 or tx_vd_cookie32:
       for line in tx_vd_cookie31.split('\n'):
          if not line:
             continue 
@@ -374,7 +378,7 @@ def check():
          
          
 def getRD_ck(index):
-   print(index)
+   #print(index)
    tx_ck1=''
    if index==1 and len(rcookiesList1)>0:
       tx_ck1=random.choice(rcookiesList1)
