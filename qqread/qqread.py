@@ -20,14 +20,14 @@ qq_read_cookie=''
 cooklist=[]
 headers={'User-Agent': 'QQ/8.4.10.666 CFNetwork/978.0.7 Darwin/18.7.0','Content-Type':'application/json'}
 def user_name():
-   msg='【nickname】'
+   msg=''
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/user/init',headers=headers,timeout=10)
 
       userRes=json.loads(response.text)
       if(userRes['code']==0):
-         msg+=f'''{userRes['data']['user']['nickName']}'''
+         msg+=f'''-{userRes['data']['user']['nickName']}'''
       else:
        	msg+=f'''{userRes['msg']}'''
    except Exception as e:
@@ -36,14 +36,14 @@ def user_name():
    loger(msg)
    
 def user_coin():
-   msg='【coin】'
+   msg=''
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/red_packet/user/page?fromGuid=',headers=headers,timeout=10)
      # print(response.text)
       userRes=json.loads(response.text)
       if(userRes['code']==0):
-         msg+=f'''💰{userRes['data']['user']['amount']} '''
+         msg+=f'''-{userRes['data']['user']['amount']} '''
       else:
        	msg+=f'''{userRes['msg']}'''
    except Exception as e:
@@ -51,14 +51,14 @@ def user_coin():
       print(msg)
    loger(msg)
 def user_readtime():
-   msg='【readtime】'
+   msg=''
    print('\n💎'+msg)
    try:
       response=requests.get('https://mqqapi.reader.qq.com/mqq/me/query/page',headers=headers,timeout=10)
       #print(response.text)
       userRes=json.loads(response.text)
       if(userRes['code']==0):
-         msg+=f'''💰{userRes['data']['readTime']}  min  【Readmoney】{userRes['data']['balance']['allBalance']}bean'''
+         msg+=f'''-{userRes['data']['readTime']}  min-{userRes['data']['balance']['allBalance']}bean'''
       else:
        	msg+=f'''{userRes['msg']}'''
    except Exception as e:
