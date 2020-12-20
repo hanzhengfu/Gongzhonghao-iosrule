@@ -13,6 +13,7 @@ def ludingji(i,j,k):
     print('=🔔='*k)
     try:
        response = requests.post(i,headers=hd,data=j)
+       print(response.text)
        if(k==8):
              res=json.dumps(response.text)
              res=re.compile('(\d+.\d+)').findall(res)
