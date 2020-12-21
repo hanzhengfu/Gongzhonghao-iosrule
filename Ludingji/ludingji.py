@@ -29,7 +29,9 @@ def ludingji(i,j,k):
 def watch(flag,list):
    vip=''
    if flag in osenviron:
-      vip = osenviron[flag]
+      vip = os.environ[flag]
+   if flag in osenviron:
+      vip = os.environ[flag]
    if vip:
        for line in vip.split('\n'):
          if not line:
