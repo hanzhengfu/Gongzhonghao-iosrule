@@ -20,7 +20,7 @@ def ludingji(i,j,k):
     print('=🔔='*k)
     try:
        response = requests.post(i,headers=hd,data=j)
-       print(response.text)
+       #print(response.text)
        if(k==8):
              res=json.dumps(response.text)
              print(res)
