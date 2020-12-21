@@ -408,8 +408,8 @@ def clock(func):
 @clock
 def start():
    check()
-   index=0
    for max in range(3):
+     index=0
      for count in cmcookiesList:
        index+=1
        print(f'''>>>>>>>>>【账号{str(index)}开始''')
