@@ -23,6 +23,8 @@ jobs:
       - name: '公众号iosrule' 
         run: python3 ./Ludingji/ludingji.py 
         env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
             ludingji_url: ${{ secrets.ludingji_url }}
             ludingji_tk: ${{ secrets.ludingji_tk }}
             ludingji_token: ${{ secrets.ludingji_token }}
