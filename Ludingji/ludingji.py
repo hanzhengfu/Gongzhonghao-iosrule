@@ -3,6 +3,8 @@ import os
 import re
 import json
 import time
+osenviron={}
+
 
 
 
@@ -16,6 +18,7 @@ def ludingji(i,j,k):
        print(response.text)
        if(k==8):
              res=json.dumps(response.text)
+             print(res)
              res=re.compile('(\d+.\d+)').findall(res)
              res=res[0]+'-'+res[1]+'-'+res[2]
              print('out',res)
@@ -25,8 +28,8 @@ def ludingji(i,j,k):
 
 def watch(flag,list):
    vip=''
-   if flag in os.environ:
-      vip = os.environ[flag]
+   if flag in osenviron:
+      vip = osenviron[flag]
    if vip:
        for line in vip.split('\n'):
          if not line:
@@ -42,25 +45,30 @@ def watch(flag,list):
 
 
 def start():
-   funlist=[]
    urllist=[]
    tokenlist=[]
    tklist= []
+   alllist=[]
    watch('ludingji_url',urllist)
    watch('ludingji_tk',tklist)
    watch('ludingji_token',tokenlist)
    for i in range(8):
-      watch('ludingji_fun'+str(i),funlist)
-   print(len(funlist))
+     funlist=[]
+     watch('ludingji_fun'+str(i),funlist)
+     alllist.append(funlist)
+   print(len(alllist))
    for max in range(25):
+     jj=0
      for j in range(len(tklist)):
+       jj+=1
        hd['tk']=tklist[j]
        hd['token']=tokenlist[j]
        print('===='+str(j))
        for k in range(8):
-           ludingji(urllist[k],funlist[k*4+j],(k+1))
-           time.sleep(1)
+           ludingji(urllist[k],alllist[k][j],(k+1))
+           time.sleep(2)
      time.sleep(10)
      print('💎'+str(max)+'=======')
 if __name__ == '__main__':
        start()
+    
