@@ -408,7 +408,7 @@ def clock(func):
 @clock
 def start():
    check()
-   for max in range(3):
+   for max in range(6):
      index=0
      for count in cmcookiesList:
        index+=1
