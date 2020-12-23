@@ -1,0 +1,35 @@
+name: DdTQ
+
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./NewsQB/公众号iosrule.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./DdTQ/DdTQ.py 
+        env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            Dd_url: ${{ secrets.Dd_url }}
+            Dd_hd: ${{ secrets.Dd_hd }}
+            Dd_bt0: ${{ secrets.Dd_bt0 }}
+            Dd_bt1: ${{ secrets.Dd_bt1 }}
+            Dd_bt2: ${{ secrets.Dd_bt2 }}
+            Dd_bt3: ${{ secrets.Dd_bt3 }}
+            Dd_bt4: ${{ secrets.Dd_bt4 }}
+ 
