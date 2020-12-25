@@ -2,7 +2,7 @@ name: txnew
 
 on:
   schedule:
-    - cron: '*/30 * * * * '
+    - cron: '*/40 * * * * '
   watch:
     types: [started]
 jobs:
