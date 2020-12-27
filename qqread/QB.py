@@ -11,17 +11,22 @@ from datetime import datetime
 result=''
 djj_bark_cookie=''
 djj_sever_jiang=''
-
+osenviron={}
 msg=''
 hd=''
 urllist=[]
 hdlist=[]
 btlist=[]
 redtm=0
+
+
+
+
+
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    if(k==6):
-       time.sleep(31)
+      time.sleep(31)
    try:
      if(k==11):
          response = requests.post(f'''{i}{key}''',headers=hd,data={},timeout=10)
@@ -44,6 +49,8 @@ def watch(flag,list):
       djj_sever_jiang = os.environ["DJJ_SEVER_JIANG"]
    if flag in os.environ:
       vip = os.environ[flag]
+   if flag in osenviron:
+      vip = osenviron[flag]
    if vip:
        for line in vip.split('\n'):
          if not line:
@@ -56,13 +63,15 @@ def watch(flag,list):
 def hand(userRes,k):
    msg=''
    global redtm
-   if(userRes['code']==0):
+   try:
+     if(userRes['code']==0):
        if(k==1):
-           msg+=f'''【{userRes['data']['user']['nickName']}】'''
+           msg+=f'''{userRes['data']['user']['nickName'][0:2]}'''
+           print(msg)
        elif(k==2):
-            msg+=f'''-{userRes['data']['user']['amount']}'''
+            msg+=f'''|{userRes['data']['user']['amount']}'''
        elif(k==3):
-             msg+=f'''-{userRes['data']['readTime']}min-{userRes['data']['balance']['allBalance']}'''
+             msg+=f'''|{userRes['data']['readTime']}min|'''
        elif(k==10):
            if(userRes['msg']=='ok'):
               for item in userRes['data']['pageParams']['readTimeRewardTask']:
@@ -84,7 +93,9 @@ def hand(userRes,k):
                 if(not item['isPick'] and item['readTime']<=redtm):
                    Av(urllist[15],hd,16,item['readTime'])
              
-   loger(msg)             
+       loger(msg)
+   except Exception as e:
+      print(str(e))
 def pushmsg(title,txt,bflag=1,wflag=1):
    txt=urllib.parse.quote(txt)
    title=urllib.parse.quote(title)
@@ -103,9 +114,17 @@ def pushmsg(title,txt,bflag=1,wflag=1):
       response = requests.post(purl,headers=headers,data=body)
     #print(response.text)
 def loger(m):
-   print(m)
+   #print(m)
    global result
-   result +=m                
+   result +=m     
+def getid(id):
+   lll=id.split(';')
+   for l in lll:
+     if l.find('ywguid=')>=0:
+      return l[(l.find('ywguid=')+7):len(l)]
+   
+      
+    
 def notice(b,e):
     ll=False
     start_time = datetime.strptime(str(datetime.now().date())+b, '%Y-%m-%d%H:%M')
@@ -131,21 +150,32 @@ def clock(func):
 def start():
    global result,hd
    watch('ios_url',urllist)
-   watch('ios_hd',hdlist)
-   watch('ios_bt',btlist)
-   time.sleep(random.randint(1,4))
-   for j in range(len(btlist)):
-       print(f'''===={str(j+1)}({len(urllist)})''')
+   watch('ios_newhd',hdlist)
+   watch('ios_newbt',btlist)
+   for mm in range(3):
+     result=''
+     print('第'+str(mm+1)+'🏆次运行开始')
+     time.sleep(random.randint(1,4))
+     for j in range(len(btlist)):
+       print(f'''===={str(j+1)}({len(btlist)})''')
+       result+='['+str(len(btlist))+'-'+str(j+1)+']'
        hd=eval(hdlist[0])
        hd['Cookie']=btlist[j]
        for k in range(len(urllist)):
          if(k==11 or k==12 or k==14 or k==15):
             continue
          Av(urllist[k],hd,(k+1))
-       print(str(j+1)+'💎'*15+'干就完了')
-       result+='\n'
-   if notice('4:00','5:00') or notice('22:00','23:00') or notice('13:00','14:00'):
-       pushmsg('公众号iosrule',result)
+       result+=getid(btlist[j])+'\n'
+     print('第'+str(mm+1)+'🏆🏆🏆🏆次运行完毕')
+     if mm<2:
+       time.sleep(600)
+   #if notice('4:00','5:00') or notice('22:00','23:00') or notice('13:00','14:00'):
+   pushmsg('iosrule-hub',result)
+     
+     
+    
+   
+     
 if __name__ == '__main__':
        start()
     
