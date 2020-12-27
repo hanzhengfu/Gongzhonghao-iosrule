@@ -1,0 +1,30 @@
+name: Q_QWT
+
+on:
+  schedule:
+    - cron: '30 * * * * '
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Q_Qmain/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./Q_Qmain/Q_QWT.py
+        env:
+            ios_wturl: ${{ secrets.ios_wturl }}
+            ios_newhd: ${{ secrets.ios_newhd }}
+            ios_newbt: ${{ secrets.ios_newbt }}
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
