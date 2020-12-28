@@ -150,7 +150,7 @@ def clock(func):
 @clock
 def start():
    global result,hd
-   newloop=3
+   newloop=4
    watch('ios_url',urllist)
    watch('ios_newhd',hdlist)
    watch('ios_newbt',btlist)
@@ -158,7 +158,7 @@ def start():
    if(today[0:2]=='00' and int(today[3:5])<15):
       tm=15-int(today[3:5])
       time.sleep(tm*60)
-      newloop=2
+      newloop=3
    for mm in range(newloop):
      result=''
      print('第'+str(mm+1)+'🏆次运行开始')
