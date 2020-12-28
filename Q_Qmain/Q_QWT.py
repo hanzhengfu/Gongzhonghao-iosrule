@@ -136,7 +136,7 @@ def start():
          Av(urllist[k],hd,(k+1))
        result+=getid(btlist[j])+'\n'
        print('🏆'*j+'运行完毕')
-     pushmsg('iosrule-hub WT',result)
+     #pushmsg('iosrule-hub WT',result)
      
      
     
