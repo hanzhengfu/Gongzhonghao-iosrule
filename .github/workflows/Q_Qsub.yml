@@ -2,7 +2,7 @@ name: Q_Qsub
 
 on:
   schedule:
-    - cron: '30 16,17,4 * * * '
+    - cron: '00 16,17,4 * * * '
   watch:
     types: [started]
 jobs:
