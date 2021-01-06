@@ -129,7 +129,7 @@ def clock(func):
 def readdata():
    try:
      enddata=[]
-     with open("Data.txt", "r") as f:
+     with open("./appQ/Data.txt", "r") as f:
        for line in f.readlines():
         line = line.strip('\n')
         enddata.append(line)
