@@ -1,0 +1,32 @@
+name: Laji1_appQ
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./appQ/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./appQ/Laji_appQ.py 
+        env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            DJJ_TELE_COOKIE: ${{ secrets.DJJ_TELE_COOKIE }}
+            laji_url: ${{ secrets.laji_url }}
+            laji1_ck: ${{ secrets.laji1_ck }}
+            laji1_nk: ${{ secrets.laji1_nk }}
+            laji_hd: ${{ secrets.laji_hd }}
