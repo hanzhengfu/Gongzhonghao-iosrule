@@ -147,7 +147,6 @@ def start():
    watch('laji1_data1',bdlist)
    enddata=readdata()
    for i in range(5):
-     hd['Cookie']=btlist[0]
      for k in range(len(urllist)):
        if k==4:
            Av(urllist[4]+bdlist[i]+enddata[i],hd,(i+1))
