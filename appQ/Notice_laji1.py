@@ -162,7 +162,6 @@ def start():
    watch('laji_url',urllist)
    watch('laji1_ck',btlist)
    watch('laji1_nk',btlist)
-   hd['Cookie']=btlist[0]
    for k in range(len(urllist)):
        if k==1 or k==3 or k==4:
          continue
