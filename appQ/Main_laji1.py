@@ -45,7 +45,7 @@ def Av(i,hd,k,key=''):
 def hand(userRes):
    try:
        if userRes['code']==0:
-           print(str(userRes['data']['curr_task'])['amount'])
+           print(str(userRes['data']['curr_task']['amount']))
        else:
            print(userRes['message'])
    except Exception as e:
@@ -160,4 +160,3 @@ def start():
      
 if __name__ == '__main__':
        start()
-    
