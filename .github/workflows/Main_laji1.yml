@@ -2,7 +2,7 @@ name: Main_laji1
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '30 23 * * *'
   watch:
     types: [started]
 jobs:
