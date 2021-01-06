@@ -144,8 +144,6 @@ def start():
    watch('laji_hd',hdlist)
    hd=eval(hdlist[0])
    watch('laji_url',urllist)
-   watch('laji1_ck',btlist)
-   watch('laji1_nk',btlist)
    watch('laji1_data1',bdlist)
    enddata=readdata()
    for i in range(5):
