@@ -146,7 +146,7 @@ def start():
    watch('laji_url',urllist)
    watch('laji1_data1',bdlist)
    enddata=readdata()
-   for i in range(5):
+   for i in range(len(bdlist)):
      for k in range(len(urllist)):
        if k==4:
            Av(urllist[4]+bdlist[i]+enddata[i],hd,(i+1))
