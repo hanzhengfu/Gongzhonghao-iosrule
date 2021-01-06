@@ -1,4 +1,4 @@
-name: Laji1_appQ
+name: Notice_laji1
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
         run: pip install -r ./appQ/requirements.txt 
         
       - name: '公众号iosrule' 
-        run: python3 ./appQ/Laji_appQ.py 
+        run: python3 ./appQ/Notice_laji1.py 
         env:
             DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
             DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
