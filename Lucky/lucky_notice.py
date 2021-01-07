@@ -1,0 +1,1 @@
+lucky_com_url
