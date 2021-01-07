@@ -1,0 +1,28 @@
+name: Lucky_sub
+
+on:
+  schedule:
+    - cron: '30 23,0-16 * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Lucky/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./Lucky/Lucky_notice.py 
+        env:
+            lucky_sub_url: ${{ secrets.lucky_sub_url }}
+            lucky_com_hd: ${{ secrets.lucky_com_hd }}
+            lucky_key_url: ${{ secrets.lucky_key_url }}
