@@ -97,7 +97,7 @@ def start():
    for i in range(len(keylist)):
      hd['Referer']=keylist[i]
      Av(urllist[0]+addurl(),hd,i+1)
-     time.sleep(10)
+     time.sleep(random.randint(20,60))
    print('🏆🏆🏆🏆运行完毕')
  
     
