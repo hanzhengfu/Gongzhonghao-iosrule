@@ -24,21 +24,22 @@ urllist=[]
 hdlist=[]
 btlist=[]
 tmbdlist=[]
-rdbdlist=[]
 rflist=[]
 uslist=[]
 datalist=[]
+redlist=[]
+
 
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
-     if(k>2 and k<16):
+     if(k>2 and k<17):
          response = requests.post(i,headers=hd,data=key,timeout=10)
          userRes=json.loads(response.text)
          hand(userRes,k)
      else:
          userRes = requests.get(i,headers=hd,timeout=10)
-         if k!=16:
+         if k!=17:
             userRes=json.loads(userRes.text)
          hand(userRes,k)
    except Exception as e:
@@ -138,14 +139,16 @@ def hand(userRes,k):
                else:
                   print('complete.')
      elif k==15:
-       print('抢红包',userRes)
        if userRes['success']==True:
           print(f'''{userRes['data'][0]['money']}''')
        else:
            print('no red')
      elif k==16:
-       print('success')
+       if userRes['success']==True:
+          print(f'''{userRes['items']['score']}''')
      elif k==17:
+       print('success')
+     elif k==18:
       msg=str(int(userRes['user']['total_score'])/10000)+'\n'
       l=0
       for s in userRes['history']:
@@ -187,7 +190,7 @@ def watch(flag,list):
        return list
    else:
        print(f'''【{flag}】 is empty,DTask is over.''')
-      # exit()
+       exit()
 
 
 def pushmsg(title,txt,bflag=1,wflag=1,tflag=1):
@@ -245,16 +248,16 @@ def tm13():
     
 @clock
 def start():
-   global result,hd,body,btlist,urllist,uslist,hdlist,tmbdlist,rdbdlist,bdlist,rflist,datalist
+   global result,hd,body,btlist,urllist,uslist,hdlist,tmbdlist,rflist,datalist,redlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_com_url',urllist)
    watch('lucky_com_hd',hdlist)
    hd=eval(hdlist[0])
    watch('lucky_us_ck',uslist)
    watch('lucky_tm_bd',tmbdlist)
-   watch('lucky_rd_bd',rdbdlist)
+   watch('lucky_red_bd',redlist)
    watch('lucky_sg_rf',rflist)
-   watch('lucky_data_bd1',datalist)
+   watch('lucky_data_bd',datalist)
    cc=0
    for cc in range(len(rflist)):
      hd['Referer']=rflist[cc]
@@ -265,7 +268,7 @@ def start():
          continue
        if k==0:
           Av(urllist[k]+uslist[k],hd,(k+1))
-       if k==3 or k==4 or k==7 or k==8 or k==9 or k==10 or k==13 or k==15 :
+       if k==3 or k==4 or k==7 or k==8 or k==9 or k==10 or k==13  or k==16 :
           Av(urllist[k],hd,(k+1))
        if k==5:
           Av(urllist[k],hd,(k+1),'type=taskCenter')
@@ -274,7 +277,9 @@ def start():
        if k==11:
           body=rflist[0].split('&')[15]+rflist[0].split('&')[8]
           Av(urllist[k]+str(tm13()),hd,(k+1),body)
-       if k==16:
+       if k==15:
+          Av(urllist[k],hd,(k+1),redlist[0])
+       if k==17:
           Av(urllist[k]+rflist[0],hd,(k+1))
    
    print('🏆🏆🏆🏆运行完毕')
@@ -285,4 +290,4 @@ def start():
      
 if __name__ == '__main__':
        start()
-   
+    
