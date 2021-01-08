@@ -1,5 +1,4 @@
 name: Lucky_notice
-
 on:
   schedule:
     - cron: '30 * * * *'
