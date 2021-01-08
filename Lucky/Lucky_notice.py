@@ -30,6 +30,9 @@ datalist=[]
 redlist=[]
 
 
+
+
+
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
@@ -47,8 +50,10 @@ def Av(i,hd,k,key=''):
 
 
 def hand(userRes,k):
+   msg=''
    try:
      if k==1:
+       #print(userRes)
        msg=userRes['items']['nickname'][0:3]+f'''|{userRes['items']['today_score']}|{int(userRes['items']['score'])/10000}|{int(userRes['items']['read_article_second']/60)}|'''
        loger(msg)
        if userRes['items']['sign_status']==0:
@@ -103,7 +108,7 @@ def hand(userRes,k):
           if userRes['data']['doubleNum']>0:
             Av(urllist[k]+str(tm13()),hd,(k+1),body)
           if userRes['data']['remainTurn']>0:
-            time.sleep(2)
+            time.sleep(5)
             Av(urllist[k-1]+str(tm13()),hd,(k),body)
         else:
           print(userRes['msg'])
@@ -258,29 +263,28 @@ def start():
    watch('lucky_red_bd',redlist)
    watch('lucky_sg_rf',rflist)
    watch('lucky_data_bd',datalist)
-   cc=0
    for cc in range(len(rflist)):
      hd['Referer']=rflist[cc]
-     cc+=1
-     result+=str(cc)+'.'
+     print('账号'+str(cc+1))
+     result+=str(cc+1)+'.'
      for k in range(len(urllist)):
        if k==1 or k==2 or k==12 or k==14:
          continue
        if k==0:
-          Av(urllist[k]+uslist[k],hd,(k+1))
+          Av(urllist[k]+uslist[cc],hd,(k+1))
        if k==3 or k==4 or k==7 or k==8 or k==9 or k==10 or k==13  or k==16 :
           Av(urllist[k],hd,(k+1))
        if k==5:
           Av(urllist[k],hd,(k+1),'type=taskCenter')
        if k==6:
-          Av(urllist[k],hd,(k+1),datalist[0])
+          Av(urllist[k],hd,(k+1),datalist[cc])
        if k==11:
-          body=rflist[0].split('&')[15]+rflist[0].split('&')[8]
+          body=rflist[cc].split('&')[15]+rflist[cc].split('&')[8]
           Av(urllist[k]+str(tm13()),hd,(k+1),body)
        if k==15:
-          Av(urllist[k],hd,(k+1),redlist[0])
+          Av(urllist[k],hd,(k+1),redlist[cc])
        if k==17:
-          Av(urllist[k]+rflist[0],hd,(k+1))
+          Av(urllist[k]+rflist[cc],hd,(k+1))
    
    print('🏆🏆🏆🏆运行完毕')
    pushmsg('Lucky-二库',result)
