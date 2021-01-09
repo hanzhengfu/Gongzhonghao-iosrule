@@ -17,6 +17,7 @@ djj_tele_cookie=''
    
 result=''
 body=''
+tmbody=''
 osenviron={}
 msg={}
 hd={}
@@ -253,7 +254,7 @@ def tm13():
     
 @clock
 def start():
-   global result,hd,body,btlist,urllist,uslist,hdlist,tmbdlist,rflist,datalist,redlist
+   global result,hd,body,tmbody,btlist,urllist,uslist,hdlist,tmbdlist,rflist,datalist,redlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_com_url',urllist)
    watch('lucky_com_hd',hdlist)
@@ -265,6 +266,7 @@ def start():
    watch('lucky_data_bd',datalist)
    for cc in range(len(rflist)):
      hd['Referer']=rflist[cc]
+     tmbody=tmbdlist[cc]
      print('账号'+str(cc+1))
      result+=str(cc+1)+'.'
      for k in range(len(urllist)):
