@@ -8,12 +8,6 @@ import timeit
 import urllib
 from datetime import datetime
 from dateutil import tz
-
-
-djj_bark_cookie=''
-djj_sever_jiang=''
-djj_tele_cookie=''
-   
    
 result=''
 body=''
@@ -27,9 +21,6 @@ looplist=[]
 numlist=[]
 md5list=[]
 count={}
-osenviron['lucky_main_num']='''
-1
-'''
 
 
 def Av(i,hd,k,key=''):
@@ -61,15 +52,6 @@ def hand(userRes,k):
 
 def watch(flag,list):
    vip=''
-   global djj_bark_cookie
-   global djj_sever_jiang
-   global djj_tele_cookie
-   if "DJJ_BARK_COOKIE" in os.environ:
-      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
-   if "DJJ_TELE_COOKIE" in os.environ:
-      djj_tele_cookie = os.environ["DJJ_TELE_COOKIE"]
-   if "DJJ_SEVER_JIANG" in os.environ:
-      djj_sever_jiang = os.environ["DJJ_SEVER_JIANG"]
    if flag in os.environ:
       vip = os.environ[flag]
    if flag in osenviron:
@@ -162,7 +144,6 @@ def start():
    for i in range(1,int(numlist[0])+1):
      datalist=[]
      count[str(i-1)]=0
-     
      datalist=readdata(i)
      count['done'+str(i-1)]=0
      if len(datalist)<2:
