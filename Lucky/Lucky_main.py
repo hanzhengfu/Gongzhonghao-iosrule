@@ -58,8 +58,6 @@ def hand(userRes,k):
        print(str(count[str(k-1)])+'++++'+userRes['message'])
    except Exception as e:
       print(str(e))
-      
-      
 
 def watch(flag,list):
    vip=''
@@ -100,36 +98,7 @@ def readdata(id):
    except Exception as e:
       enddata=['']
    return enddata
-def pushmsg(title,txt,bflag=1,wflag=1,tflag=1):
-   try:
-     txt=urllib.parse.quote(txt)
-     title=urllib.parse.quote(title)
-     if bflag==1 and djj_bark_cookie.strip():
-         print("\n【Bark通知】")
-         purl = f'''https://api.day.app/{djj_bark_cookie}/{title}/{txt}'''
-         response = requests.post(purl)
-   except Exception as e:
-      print(str(e))
-   try:
-     if tflag==1 and djj_tele_cookie.strip():
-         print("\n【Telegram消息】")
-         id=djj_tele_cookie[djj_tele_cookie.find('@')+1:len(djj_tele_cookie)]
-         botid=djj_tele_cookie[0:djj_tele_cookie.find('@')]
 
-         turl=f'''https://api.telegram.org/bot{botid}/sendMessage?chat_id={id}&text={title}\n{txt}'''
-
-         response = requests.get(turl,timeout=5)
-   except Exception as e:
-      print(str(e))
-   try:
-     if wflag==1 and djj_sever_jiang.strip():
-        print("\n【微信消息】")
-        purl = f'''http://sc.ftqq.com/{djj_sever_jiang}.send'''
-        headers={'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
-        body=f'''text={txt})&desp={title}'''
-        response = requests.post(purl,headers=headers,data=body)
-   except Exception as e:
-      print(str(e))
 def loger(m):
    #print(m)
    global result
