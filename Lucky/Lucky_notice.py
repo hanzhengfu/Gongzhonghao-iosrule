@@ -88,7 +88,7 @@ def hand(userRes,k):
            print(str(userRes['data']['score']))
      elif k==6:
        if userRes['code']==1:
-        print('continue_card_days:'+str(userRes['data']['luck']['continue_card_days'])+"----luckdraw_num:"+userRes['data']['luck']['luckdraw_num'])
+        print('continue_card_days:'+str(userRes['data']['luck']['continue_card_days'])+"----luckdraw_num:"+star(userRes['data']['luck']['luckdraw_num']))
         if userRes['data']['user']['status']==0:
            Av(urllist[k],hd,(k+1))
         else:
