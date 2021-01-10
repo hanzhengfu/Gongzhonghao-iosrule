@@ -1,1 +1,212 @@
-lucky_com_url
+import requests
+import os
+import re
+import json
+import time
+import random
+import timeit
+import urllib
+from datetime import datetime
+from dateutil import tz
+
+
+djj_bark_cookie=''
+djj_sever_jiang=''
+djj_tele_cookie=''
+   
+   
+result=''
+body=''
+osenviron={}
+msg={}
+hd={}
+urllist=[]
+hdlist=[]
+datalist=[]
+looplist=[]
+numlist=[]
+md5list=[]
+count={}
+osenviron['lucky_main_num']='''
+1
+'''
+
+
+def Av(i,hd,k,key=''):
+   global count
+   print(str(k)+'=🔔=')
+   try:
+      response = requests.post(i,headers=hd,data=key,timeout=10)
+      userRes=json.loads(response.text)
+      hand(userRes,k)
+   except Exception as e:
+      print(str(e))
+
+
+def hand(userRes,k):
+   global count
+   try:
+     st=json.dumps(userRes)
+     if userRes['success']==True:
+       if st.find('max_notice')>0 or st.find('read_score')>0:
+        count[str(k-1)]+=1
+        print(str(count[str(k-1)])+'++++'+str(userRes['items']['read_score']))
+       else:
+         print('waiting..........')
+     else:
+       count[str(k-1)]+=1
+       print(str(count[str(k-1)])+'++++'+userRes['message'])
+   except Exception as e:
+      print(str(e))
+      
+      
+
+def watch(flag,list):
+   vip=''
+   global djj_bark_cookie
+   global djj_sever_jiang
+   global djj_tele_cookie
+   if "DJJ_BARK_COOKIE" in os.environ:
+      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
+   if "DJJ_TELE_COOKIE" in os.environ:
+      djj_tele_cookie = os.environ["DJJ_TELE_COOKIE"]
+   if "DJJ_SEVER_JIANG" in os.environ:
+      djj_sever_jiang = os.environ["DJJ_SEVER_JIANG"]
+   if flag in os.environ:
+      vip = os.environ[flag]
+   if flag in osenviron:
+      vip = osenviron[flag]
+   if vip:
+       for line in vip.split('\n'):
+         if not line:
+            continue 
+         list.append(line.strip())
+       return list
+   else:
+       print(f'''DTask is over.''')
+       #exit()
+
+def readdata(id):
+   enddata=[]
+   try:
+     with open('Data'+str(id)+".txt", "r") as f:
+       i=0
+       for line in f.readlines():
+        line = line.strip('\n')
+        if not line:
+            continue 
+        enddata.append(line+md5list[id-1][i])
+        i+=1
+   except Exception as e:
+      enddata=['']
+   return enddata
+def pushmsg(title,txt,bflag=1,wflag=1,tflag=1):
+   try:
+     txt=urllib.parse.quote(txt)
+     title=urllib.parse.quote(title)
+     if bflag==1 and djj_bark_cookie.strip():
+         print("\n【Bark通知】")
+         purl = f'''https://api.day.app/{djj_bark_cookie}/{title}/{txt}'''
+         response = requests.post(purl)
+   except Exception as e:
+      print(str(e))
+   try:
+     if tflag==1 and djj_tele_cookie.strip():
+         print("\n【Telegram消息】")
+         id=djj_tele_cookie[djj_tele_cookie.find('@')+1:len(djj_tele_cookie)]
+         botid=djj_tele_cookie[0:djj_tele_cookie.find('@')]
+
+         turl=f'''https://api.telegram.org/bot{botid}/sendMessage?chat_id={id}&text={title}\n{txt}'''
+
+         response = requests.get(turl,timeout=5)
+   except Exception as e:
+      print(str(e))
+   try:
+     if wflag==1 and djj_sever_jiang.strip():
+        print("\n【微信消息】")
+        purl = f'''http://sc.ftqq.com/{djj_sever_jiang}.send'''
+        headers={'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+        body=f'''text={txt})&desp={title}'''
+        response = requests.post(purl,headers=headers,data=body)
+   except Exception as e:
+      print(str(e))
+def loger(m):
+   #print(m)
+   global result
+   result +=m     
+
+def clock(func):
+    def clocked(*args, **kwargs):
+        t0 = timeit.default_timer()
+        result = func(*args, **kwargs)
+        elapsed = timeit.default_timer() - t0
+        name = func.__name__
+        arg_str = ', '.join(repr(arg) for arg in args)
+        print('[🔔运行完毕用时%0.8fs] %s(%s) -> %r' % (elapsed, name, arg_str, result))
+        return result
+    return clocked
+    
+def myloop():
+   global count,done
+   h1=0
+   h2=0
+   for cc in range(int(numlist[0])):
+     cc+=1
+     if cc>len(looplist):
+        break
+     if len(looplist[cc-1])<2:
+       continue
+     if count['is'+str(cc-1)]==1:
+       h2+=1
+     if count[str(cc-1)]<len(looplist[cc-1]):
+        data=looplist[cc-1][count[str(cc-1)]]
+        Av(urllist[0],hd,cc,data)
+        time.sleep(25)
+     else:
+       count['done'+str(cc-1)]=2
+     if count['done'+str(cc-1)]==2:
+       h1+=1
+   if h1<h2:
+      myloop()
+def tm13():
+   Localtime=datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S.%f", )
+   timeArray = datetime.strptime(Localtime, "%Y-%m-%d %H:%M:%S.%f")
+   timeStamp = int(time.mktime(timeArray.timetuple())*1000+timeArray.microsecond/1000)
+   return timeStamp   
+    
+@clock
+def start():
+   global result,hd,urllist,datalist,looplist,count,numlist,md5list
+   print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
+   watch('lucky_main_url',urllist)
+   watch('lucky_com_hd',hdlist)
+   watch('lucky_main_num',numlist)
+   if len(numlist)<1:
+      exit()
+   for md in range(1,int(numlist[0])+1):
+     tmplist=[]
+     watch('lucky_md5_data'+str(md),tmplist)
+     md5list.append(tmplist)
+   if len(hdlist)<1:
+      exit()
+   hd=eval(hdlist[0])
+   for i in range(1,int(numlist[0])+1):
+     datalist=[]
+     count[str(i-1)]=0
+     
+     datalist=readdata(i)
+     count['done'+str(i-1)]=0
+     if len(datalist)<2:
+        count['is'+str(i-1)]=0
+     count['is'+str(i-1)]=1
+     looplist.append(datalist)
+   myloop()
+   print('🏆🏆🏆🏆运行完毕')
+ 
+    
+    
+   
+     
+if __name__ == '__main__':
+       start()
+   
