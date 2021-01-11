@@ -116,7 +116,7 @@ def start():
       for i in range(1,len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range():
+      for ac in range(300):
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
