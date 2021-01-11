@@ -2,7 +2,7 @@ name: Lucky_main
 
 on:
   schedule:
-    - cron: '50 0 * * *'
+    - cron: '50 * * * *'
   watch:
     types: [started]
 jobs:
