@@ -93,10 +93,9 @@ def allinbd(alllist):
    global body1,body2
    try:
       tf=[1,2]
+      body2['type']=random.choice(tf)
       body2['videoList'][0]['videoId']=random.choice(alllist)
-      body2['videoList'][0]['type']=random.choice(tf)
       body2['videoList'][1]['videoId']=random.choice(alllist)
-      body2['videoList'][1]['type']=body2['videoList'][0]['type']
       body1['videoPublishId']=body2['videoList'][1]['videoId']
       body1['playTimeLenght']=random.randint(4,30)
       body1['videoTime']=random.randint(20,60)
@@ -117,7 +116,7 @@ def start():
       for i in range(1,len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(100):
+      for ac in range():
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
