@@ -8,6 +8,12 @@ import timeit
 import urllib
 from datetime import datetime
 from dateutil import tz
+
+
+djj_bark_cookie=''
+djj_sever_jiang=''
+djj_tele_cookie=''
+   
    
 result=''
 body=''
@@ -22,10 +28,8 @@ numlist=[]
 md5list=[]
 count={}
 
-
 def Av(i,hd,k,key=''):
    global count
-   print(str(k)+'=🔔=')
    try:
       response = requests.post(i,headers=hd,data=key,timeout=10)
       userRes=json.loads(response.text)
@@ -41,17 +45,28 @@ def hand(userRes,k):
      if userRes['success']==True:
        if st.find('max_notice')>0 or st.find('read_score')>0:
         count[str(k-1)]+=1
-        print(str(count[str(k-1)])+'++++'+str(userRes['items']['read_score']))
+        print('【'+str(k)+'】-p'+str(count[str(k-1)])+'-'+str(userRes['items']['read_score']))
        else:
          print('waiting..........')
      else:
        count[str(k-1)]+=1
-       print(str(count[str(k-1)])+'++++'+userRes['message'])
+       print('【'+str(k)+'】-p'+str(count[str(k-1)])+'-'+userRes['message'])
    except Exception as e:
       print(str(e))
+      
+      
 
 def watch(flag,list):
    vip=''
+   global djj_bark_cookie
+   global djj_sever_jiang
+   global djj_tele_cookie
+   if "DJJ_BARK_COOKIE" in os.environ:
+      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
+   if "DJJ_TELE_COOKIE" in os.environ:
+      djj_tele_cookie = os.environ["DJJ_TELE_COOKIE"]
+   if "DJJ_SEVER_JIANG" in os.environ:
+      djj_sever_jiang = os.environ["DJJ_SEVER_JIANG"]
    if flag in os.environ:
       vip = os.environ[flag]
    if flag in osenviron:
@@ -63,13 +78,11 @@ def watch(flag,list):
          list.append(line.strip())
        return list
    else:
-       print(f'''DTask is over.''')
-       #exit()
-
+       pass
 def readdata(id):
    enddata=[]
    try:
-     with open('./Lucky/Data'+str(id)+".txt", "r") as f:
+     with open('Data'+str(id)+".txt", "r") as f:
        i=0
        for line in f.readlines():
         line = line.strip('\n')
@@ -80,11 +93,6 @@ def readdata(id):
    except Exception as e:
       enddata=['']
    return enddata
-
-def loger(m):
-   #print(m)
-   global result
-   result +=m     
 
 def clock(func):
     def clocked(*args, **kwargs):
@@ -98,7 +106,7 @@ def clock(func):
     return clocked
     
 def myloop():
-   global count,done
+   global count
    h1=0
    h2=0
    for cc in range(int(numlist[0])):
@@ -127,7 +135,7 @@ def tm13():
     
 @clock
 def start():
-   global result,hd,urllist,datalist,looplist,count,numlist,md5list
+   global result,hd,urllist,datalist,looplist,count,done,numlist,md5list
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_main_url',urllist)
    watch('lucky_com_hd',hdlist)
@@ -149,6 +157,7 @@ def start():
      if len(datalist)<2:
         count['is'+str(i-1)]=0
      count['is'+str(i-1)]=1
+     print('【'+str(i)+'】'+str(len(datalist)))
      looplist.append(datalist)
    myloop()
    print('🏆🏆🏆🏆运行完毕')
