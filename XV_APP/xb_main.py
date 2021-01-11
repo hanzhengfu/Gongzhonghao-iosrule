@@ -92,7 +92,7 @@ def allinone(i):
 def allinbd(alllist):
    global body1,body2
    try:
-      tf=[1,2]
+      tf=[1,1,1,1,2]
       body2['type']=random.choice(tf)
       body2['videoList'][0]['videoId']=random.choice(alllist)
       body2['videoList'][1]['videoId']=random.choice(alllist)
@@ -116,7 +116,7 @@ def start():
       for i in range(1,len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(60):
+      for ac in range():
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
@@ -128,8 +128,11 @@ def start():
              print('【C】'+str(k+1))
              Av(urllist[0],hd,(2),json.dumps(body2))
              print('await.............' )
-             time.sleep(random.randint(30,60))
-             Av(urllist[len(urllist)-1],hd,(1),json.dumps(body1))
+             Av(urllist[0],hd,(2),json.dumps(body2))
+             print('await.............' )
+             time.sleep(random.randint(30,45))
+             if random.randint(1,8)==5:
+                Av(urllist[len(urllist)-1],hd,(1),json.dumps(body1))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
    
