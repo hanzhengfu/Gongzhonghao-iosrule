@@ -165,6 +165,7 @@ def hand(userRes,k):
           print(f'''{userRes['items']['score']}''')
      elif k==17:
        if userRes['status']==1:
+         print(str(userRes['data']['opened'])+'/'+str(userRes['data']['remainTurn']))
          kkk=0
          for jjj in userRes['data']['chestOpen']:
            kkk+=1
@@ -174,6 +175,7 @@ def hand(userRes,k):
         if userRes['status']==1:
           print(userRes['data']['score'])
      elif k==19:
+        print('video')
         if userRes['success']==True:
            print(str(userRes['items']['score'][0:3]))
         elif userRes['success']==False:
@@ -298,10 +300,10 @@ def start():
    if len(uslist)==0 or len(hdlist)==0:
       print('data is null.......')
       exit()
-   uslist=s(uslist)
    hd=eval(hdlist[0])
-   for loop in range(1):
-    for cc in range(0,6):
+   uslist=s(uslist)
+   for loop in range(6):
+    for cc in range(len(rflist)):
       hd['Referer']=rflist[cc]
       tmbody=tmbdlist[cc]
       print('账号'+str(cc+1))
@@ -328,8 +330,8 @@ def start():
           Av(urllist[k],hd,(k+1),datalist[cc])
         if k==4 or k==20:
           Av(urllist[k]+rflist[cc],hd,(k+1))
-      #time.sleep(10)
-   #time.sleep(10)
+      time.sleep(10)
+   time.sleep(30)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
