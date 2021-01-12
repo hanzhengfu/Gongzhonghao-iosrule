@@ -2,7 +2,7 @@ name: Lucky_notice
 
 on:
   schedule:
-    - cron: '30 * * * *'
+    - cron: '*/30 21,22,23,0-16 * * *'
   watch:
     types: [started]
 jobs:
