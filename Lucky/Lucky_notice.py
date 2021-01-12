@@ -30,21 +30,17 @@ datalist=[]
 redlist=[]
 
 
-
-
-
-
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
-     if(k>2 and k<6) or (k>6 and k<21):
+     if(k>0 and k<5) or (k>5 and k<20):
          response = requests.post(i,headers=hd,data=key,timeout=10)
          userRes=json.loads(response.text)
          #print(userRes)
          hand(userRes,k)
      else:
          userRes = requests.get(i,headers=hd,timeout=10)
-         if k!=21:
+         if k!=20:
             userRes=json.loads(userRes.text)
             #print(userRes)
          hand(userRes,k)
@@ -56,45 +52,34 @@ def hand(userRes,k):
    msg=''
    try:
      if k==1:
-       msg=userRes['items']['nickname'][0:3]+f'''|{userRes['items']['today_score']}|{int(userRes['items']['score'])/10000}|{int(userRes['items']['read_article_second']/60)}|'''
-       loger(msg)
-       if userRes['items']['sign_status']==0:
-          Av(urllist[k],hd,(k+1))
-       m=int(userRes['items']['read_article_second']/60)
-       if m<155:
-         Av(urllist[2],hd,(3),tmbody)
-         time.sleep(2)
-         Av(urllist[2],hd,(3),tmbody)
-         time.sleep(2)
-         Av(urllist[2],hd,(3),tmbody)
-         time.sleep(2)
-         Av(urllist[2],hd,(3),tmbody)
-     elif k==2:
         if userRes['status']==0:
            print(userRes['msg'])
         elif userRes['status']==1:
            print(str(userRes['score']))
-     elif k==3:
+     elif k==2:
         print(str(userRes['time']/60))
+        loger('|'+str(int(userRes['time']/60))+'|')
+     elif k==3:
+        if userRes['code']==0:
+           print(userRes['msg'])
+        elif userRes['code']==1:
+           print(str(userRes['data']['score']))
      elif k==4:
         if userRes['code']==0:
            print(userRes['msg'])
         elif userRes['code']==1:
            print(str(userRes['data']['score']))
      elif k==5:
-        if userRes['code']==0:
-           print(userRes['msg'])
-        elif userRes['code']==1:
-           print(str(userRes['data']['score']))
-     elif k==6:
-       if userRes['code']==1:
-        print('continue_card_days:'+str(userRes['data']['luck']['continue_card_days'])+"----luckdraw_num:"+star(userRes['data']['luck']['luckdraw_num']))
+      if userRes['code']==1:
+        print('continue_card_days:'+str(userRes['data']['luck']['continue_card_days'])+"-luckdraw_num:"+str(userRes['data']['luck']['luckdraw_num']))
+        msg+='C:'+str(userRes['data']['luck']['continue_card_days'])+"-D:"+str(userRes['data']['luck']['luckdraw_num'])+'|'
+        loger(msg)
         if userRes['data']['user']['status']==0:
            Av(urllist[k],hd,(k+1))
         else:
            today=datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%H:%M", )
            print('today:',today)
-           if(int(today[0:2])>5 and int(today[0:2])<8):
+           if(int(today[0:2])>4 and int(today[0:2])<9):
               Av(urllist[k+1],hd,(k+2))
         if userRes['data']['user']['is_get_share_reward']==0:
            	Av(urllist[k+2],hd,(k+3))
@@ -102,22 +87,24 @@ def hand(userRes,k):
            	Av(urllist[k+3],hd,(k+4))
         if userRes['data']['luck']['luckdraw_num']=='1':
            	Av(urllist[k+4],hd,(k+5))
+     elif k==6:
+        if userRes['code']==0:
+           print(userRes['msg'])
+        else:
+           print(userRes['data']['jackpot_money'])
      elif k==7:
         if userRes['code']==0:
            print(userRes['msg'])
      elif k==8:
-        if userRes['code']==0:
-           print(userRes['msg'])
-     elif k==9:
         if userRes['code']==1:
            print(userRes['msg'])
-     elif k==10:
+     elif k==9:
         if userRes['code']==0:
            print(userRes['msg'])
-     elif k==11:
+     elif k==10:
       if userRes['code']==1:
            print(userRes['data']['score'])
-     elif k==12:
+     elif k==11:
         if userRes['status']==1:
           print(f'''score:{userRes['data']['score']}-remainTurn:{userRes['data']['remainTurn']}''')
           if userRes['data']['doubleNum']>0:
@@ -129,7 +116,7 @@ def hand(userRes,k):
             
         elif userRes['status']==0:
             print(userRes['msg'])
-     elif k==13:
+     elif k==12:
         print('doubleNum......')
         if userRes['status']==1:
           print(f'''score:{userRes['data']['score']}-doubleNum:{userRes['data']['doubleNum']}''')
@@ -137,14 +124,14 @@ def hand(userRes,k):
            print(userRes['msg'])
         time.sleep(5)
         Av(urllist[k-2]+str(tm13()),hd,(k-1),body)
-     elif k==14:
+     elif k==13:
         if userRes['status']==0:
            print(userRes['msg'])
         elif userRes['status']==1:
            print(f'''num:{userRes['num']}-score:{userRes['score']}''')
         else:
            print('status...')
-     elif k==15:
+     elif k==14:
        if userRes['success']==True:
           temp1=userRes['data']['list']['sign']
           if len(temp1)==0:
@@ -168,33 +155,33 @@ def hand(userRes,k):
                 time.sleep(5)
                else:
                   print('complete.')
-     elif k==16:
+     elif k==15:
        if userRes['success']==True:
           print(f'''{userRes['data'][0]['money']}''')
        else:
            print('no red')
-     elif k==17:
+     elif k==16:
        if userRes['success']==True:
           print(f'''{userRes['items']['score']}''')
-     elif k==18:
+     elif k==17:
        if userRes['status']==1:
          kkk=0
          for jjj in userRes['data']['chestOpen']:
            kkk+=1
            if jjj['received']==0:
              Av(urllist[k]+str(tm13()),hd,(k+1),'num='+str(kkk))
-     elif k==19:
+     elif k==18:
         if userRes['status']==1:
           print(userRes['data']['score'])
-     elif k==20:
+     elif k==19:
         if userRes['success']==True:
            print(str(userRes['items']['score'][0:3]))
         elif userRes['success']==False:
            print(userRes['message'])
-     elif k==21:
+     elif k==20:
        print('success')
-     elif k==22:
-      msg=str(int(userRes['user']['total_score'])/10000)+'\n'
+     elif k==21:
+      msg=str(int(userRes['user']['score'])/10000)+'|'+str(int(int(userRes['user']['total_score'])/10000))+'|'+str(userRes['history'][0]['score']/10000)+'\n'
       l=0
       for s in userRes['history']:
         l+=1
@@ -235,7 +222,7 @@ def watch(flag,list):
        return list
    else:
        print(f'''【{flag}】 is empty,DTask is over.''')
-       exit()
+      # exit()
 
 
 def pushmsg(title,txt,bflag=1,wflag=1,tflag=1):
@@ -284,7 +271,12 @@ def clock(func):
         return result
     return clocked
     
-    
+def s(st):
+   st=st[0][1:len(st[0])-1]
+   l=[]
+   for i in st.split(','):
+      l.append(i[1:4])
+   return l
 def tm13():
    Localtime=datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S.%f", )
    timeArray = datetime.strptime(Localtime, "%Y-%m-%d %H:%M:%S.%f")
@@ -298,41 +290,51 @@ def start():
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_com_url',urllist)
    watch('lucky_com_hd',hdlist)
-   hd=eval(hdlist[0])
    watch('lucky_us_ck',uslist)
    watch('lucky_tm_bd',tmbdlist)
    watch('lucky_red_bd',redlist)
    watch('lucky_sg_rf',rflist)
    watch('lucky_data_bd',datalist)
-   for cc in range(len(rflist)):
-     hd['Referer']=rflist[cc]
-     tmbody=tmbdlist[cc]
-     print('账号'+str(cc+1))
-     result+=str(cc+1)+'.'
-     for k in range(len(urllist)):
-       if k==1 or k==2 or (k>5 and k<11) or k==14 or k==18:
+   if len(uslist)==0 or len(hdlist)==0:
+      print('data is null.......')
+      exit()
+   uslist=s(uslist)
+   hd=eval(hdlist[0])
+   for loop in range(1):
+    for cc in range(0,6):
+      hd['Referer']=rflist[cc]
+      tmbody=tmbdlist[cc]
+      print('账号'+str(cc+1))
+      result+=str(cc+1)+'.'+uslist[cc]
+      for k in range(len(urllist)):
+        if (k>4 and k<10) or k==13 or k==17:
          continue
-       if k==0:
-          Av(urllist[k]+uslist[cc],hd,(k+1))
-       if k==3 or k==4:
+        if k==0:
           Av(urllist[k],hd,(k+1))
-       if k==11:
+        if k==1:
+          Av(urllist[k],hd,(k+1),tmbody)
+        if k==2 or k==3:
+          Av(urllist[k],hd,(k+1))
+        if k==10:
           body=rflist[cc].split('&')[15]+rflist[cc].split('&')[8]
           Av(urllist[k]+str(tm13()),hd,(k+1),body)
-       if k==13:
+        if k==12:
           Av(urllist[k],hd,(k+1),'type=taskCenter')
-       if k==16:
+        if k==15:
           Av(urllist[k],hd,(k+1),redlist[cc])
-       if k==17:
+        if k==16:
           Av(urllist[k]+str(tm13()),hd,(k+1))
-       if k==19:
+        if k==18:
           Av(urllist[k],hd,(k+1),datalist[cc])
-       if k==5 or k==21:
+        if k==4 or k==20:
           Av(urllist[k]+rflist[cc],hd,(k+1))
+      #time.sleep(10)
+   #time.sleep(10)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
-  pushmsg('Lucky-二库2020109',result)
+  #print(result)
+  pushmsg('Lucky-二库',result)
     
     
    
