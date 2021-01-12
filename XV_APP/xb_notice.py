@@ -125,7 +125,7 @@ def start():
    global result,hd,urllist,hdlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('xb_sub_url',urllist)
-   watch('xb_main_hd',hdlist)
+   watch('xb_sub_hd',hdlist)
    for j in range(len(hdlist)):
        print(f'''C【{str(j+1)}】''')
        result+='['+str(len(hdlist))+'-'+str(j+1)+']'
