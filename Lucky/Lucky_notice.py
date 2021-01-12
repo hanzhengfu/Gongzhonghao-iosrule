@@ -303,6 +303,7 @@ def start():
    hd=eval(hdlist[0])
    uslist=s(uslist)
    for loop in range(6):
+    result=''
     for cc in range(len(rflist)):
       hd['Referer']=rflist[cc]
       tmbody=tmbdlist[cc]
