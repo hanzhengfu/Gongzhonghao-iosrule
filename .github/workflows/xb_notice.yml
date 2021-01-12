@@ -1,0 +1,27 @@
+name: xb_notice
+
+on:
+  schedule:
+    - cron: '*/60 22,23,0-16 * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Lucky/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./XV_APP/xb_notice.py 
+        env:
+            xb_sub_url: ${{ secrets.xb_sub_url }}
+            xb_main_hd: ${{ secrets.xb_main_hd }}
