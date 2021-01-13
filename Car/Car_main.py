@@ -110,7 +110,7 @@ def start():
    watch('car_hd',hdlist)
    if(len(hdlist)==0):
           exit()
-   for t in range(5):
+   for t in range(1):
      result=''
      for j in range(10):
        time.sleep(random.randint(1,3))
