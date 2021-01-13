@@ -113,7 +113,7 @@ def start():
       watch('xb_main_hd',hdlist)
       watch('xb_main_bd',bdlist)
       allcode=[]
-      for i in range(1,len(urllist)-1):
+      for i in range(len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
       for ac in range(600):
@@ -123,13 +123,12 @@ def start():
           hd=eval(hdlist[k])
           if len(alllist)>10:
             allinbd(alllist)
-          for k in range(len(hdlist)):
-             hd=eval(hdlist[k])
-             print('【C】'+str(k+1))
-             Av(urllist[0],hd,(2),json.dumps(body2))
-             print('await.............' )
-             time.sleep(random.randint(15,45))
-             Av(urllist[len(urllist)-1],hd,(1),json.dumps(body1))
+          print('【C】'+str(k+1))
+          Av(urllist[0],hd,(2),json.dumps(body2))
+          print('await.............' )
+          time.sleep(random.randint(15,30))
+          Av(urllist[len(urllist)-1],hd,(1),json.dumps(body1))
+          time.sleep(random.randint(1,3))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
    
