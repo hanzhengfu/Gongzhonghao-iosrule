@@ -1,0 +1,28 @@
+name: xb_main1
+
+on:
+  schedule:
+    - cron: '*/45 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Lucky/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./XV_APP/xb_main1.py 
+        env:
+            xb_main_url: ${{ secrets.xb_main_url }}
+            xb_main_hd: ${{ secrets.xb_main_hd }}
+            xb_main_bd: ${{ secrets.xb_main_bd }}
