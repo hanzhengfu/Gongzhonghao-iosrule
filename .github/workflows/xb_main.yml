@@ -2,7 +2,7 @@ name: xb_main
 
 on:
   schedule:
-    - cron: '15 22 * * *'
+    - cron: '*/30 0-16 * * *'
   watch:
     types: [started]
 jobs:
