@@ -47,6 +47,7 @@ def hand(userRes,k):
         count[str(k-1)]+=1
         print('【'+str(k)+'】-p'+str(count[str(k-1)])+'-'+str(userRes['items']['read_score']))
        else:
+         count[str(k-1)]+=1
          print('waiting..........')
      else:
        count[str(k-1)]+=1
@@ -120,11 +121,14 @@ def myloop():
      if count[str(cc-1)]<len(looplist[cc-1]):
         data=looplist[cc-1][count[str(cc-1)]]
         Av(urllist[0],hd,cc,data)
-        time.sleep(25)
      else:
        count['done'+str(cc-1)]=2
      if count['done'+str(cc-1)]==2:
        h1+=1
+     if h2-h1>0:
+         print('large+++++++'+str(h2-h1))
+         print('waiting.....'+str(36/(h2-h1)))
+         time.sleep(36/(h2-h1))
    if h1<h2:
       myloop()
 def tm13():
@@ -144,6 +148,7 @@ def start():
       exit()
    for md in range(1,int(numlist[0])+1):
      tmplist=[]
+     print('L【'+str(md)+'】'+str(len(tmplist)))
      watch('lucky_md5_data'+str(md),tmplist)
      md5list.append(tmplist)
    if len(hdlist)<1:
@@ -157,7 +162,7 @@ def start():
      if len(datalist)<2:
         count['is'+str(i-1)]=0
      count['is'+str(i-1)]=1
-     print('【'+str(i)+'】'+str(len(datalist)))
+     print('H【'+str(i)+'】'+str(len(datalist)))
      looplist.append(datalist)
    myloop()
    print('🏆🏆🏆🏆运行完毕')
