@@ -25,15 +25,17 @@ alllist=[]
 
 
 
-
-
 def Av(i,hd,k,key=''):
    try:
       if k==1:
         response = requests.get(i,headers=hd,timeout=10)
+        response.raise_for_status()
+        response.close()
         userRes=json.loads(response.text)
       if k==2 or k==3:
          response = requests.post(i,headers=hd,data=key,timeout=10)
+         response.raise_for_status()
+         response.close()
          userRes=json.loads(response.text)
       hand(userRes,k)
    except Exception as e:
@@ -96,6 +98,8 @@ def allinone(i):
    global alllist
    try:
      response = requests.get(i,timeout=10)
+     response.raise_for_status()
+     response.close()
      userRes=json.loads(response.text)
      if userRes['resultCode']==1:
       for l in userRes['data']['records']:
@@ -139,7 +143,7 @@ def start():
       for i in range(2,len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(500):
+      for ac in range(120):
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
@@ -150,10 +154,11 @@ def start():
             allinbd(alllist)
           print('【C】'+str(k+1))
           Av(urllist[1]+body1['videoPublishId'],hd,(1))
+          
           time.sleep(random.randint(1,5))
           Av(urllist[0],hd,(2),json.dumps(body2))
           print('await.............' )
-          time.sleep(random.randint(15,20))
+          time.sleep(random.randint(15,20)/len(hdlist))
           Av(urllist[len(urllist)-1],hd,(3),json.dumps(body3))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
