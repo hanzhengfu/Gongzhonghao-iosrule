@@ -15,17 +15,27 @@ osenviron={}
 hd={}
 body1={}
 body2={}
+body3={}
 urllist=[]
 hdlist=[]
 bdlist=[]
 alllist=[]
 
 
+
+
+
+
+
 def Av(i,hd,k,key=''):
    try:
+      if k==1:
+        response = requests.get(i,headers=hd,timeout=10)
+        userRes=json.loads(response.text)
+      if k==2 or k==3:
          response = requests.post(i,headers=hd,data=key,timeout=10)
          userRes=json.loads(response.text)
-         hand(userRes,k)
+      hand(userRes,k)
    except Exception as e:
       print(str(e))
 
@@ -76,7 +86,11 @@ def clock(func):
     return clocked
     
   
-  
+def tm13():
+   Localtime=datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S.%f", )
+   timeArray = datetime.strptime(Localtime, "%Y-%m-%d %H:%M:%S.%f")
+   timeStamp = int(time.mktime(timeArray.timetuple())*1000+timeArray.microsecond/1000)
+   return timeStamp   
   
 def allinone(i):
    global alllist
@@ -90,15 +104,24 @@ def allinone(i):
       print(str(e))
       
 def allinbd(alllist):
-   global body1,body2
+   global body1,body2,body3
    try:
-      tf=[1,1,1,2]
-      body2['type']=random.choice(tf)
+      tf=[1,1,1,1,2]
       body2['videoList'][0]['videoId']=random.choice(alllist)
+      body2['videoList'][0]['type']=random.choice(tf)
       body2['videoList'][1]['videoId']=random.choice(alllist)
-      body1['videoPublishId']=body2['videoList'][1]['videoId']
+      body2['videoList'][1]['type']=body2['videoList'][0]['type']
+      
+      
+      body1['videoPublishId']=body2['videoList'][0]['videoId']
       body1['playTimeLenght']=random.randint(4,30)
       body1['videoTime']=random.randint(20,60)
+      
+      body3['videoPublishId']=body2['videoList'][1]['videoId']
+      body3['playTimeLenght']=random.randint(4,30)
+      body3['videoTime']=random.randint(20,60)
+      
+      
    except Exception as e:
       print(str(e))
       
@@ -106,31 +129,33 @@ def allinbd(alllist):
 
 @clock
 def start():
-   global result,hd,body1,body2,alllist,hdlist,urllist,bdlist
+   global result,hd,body1,body2,body3,alllist,hdlist,urllist,bdlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    try:
       watch('xb_main_url',urllist)
       watch('xb_main_hd',hdlist)
       watch('xb_main_bd',bdlist)
       allcode=[]
-      for i in range(len(urllist)-1):
+      for i in range(2,len(urllist)-1):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(600):
+      for ac in range(500):
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
           hd=eval(hdlist[k])
+          st=hd['traceid']
+          hd['traceid']=st.replace(st[20:33],str(tm13()))
           if len(alllist)>10:
             allinbd(alllist)
           print('【C】'+str(k+1))
+          Av(urllist[1]+body1['videoPublishId'],hd,(1))
+          time.sleep(random.randint(1,5))
           Av(urllist[0],hd,(2),json.dumps(body2))
           print('await.............' )
-          time.sleep(random.randint(15,30))
-          Av(urllist[len(urllist)-1],hd,(1),json.dumps(body1))
-          time.sleep(random.randint(1,3))
+          time.sleep(random.randint(15,20))
+          Av(urllist[len(urllist)-1],hd,(3),json.dumps(body3))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
-   
    
    except Exception as e:
       print(str(e))
