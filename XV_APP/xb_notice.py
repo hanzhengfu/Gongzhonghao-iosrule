@@ -22,10 +22,6 @@ btlist=[]
 
 
 
-
-
-
-
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
@@ -106,8 +102,11 @@ def getid(id):
    for l in lll:
      if l.find('ywguid=')>=0:
       return l[(l.find('ywguid=')+7):len(l)]
-   
-      
+def tm13():
+   Localtime=datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S.%f", )
+   timeArray = datetime.strptime(Localtime, "%Y-%m-%d %H:%M:%S.%f")
+   timeStamp = int(time.mktime(timeArray.timetuple())*1000+timeArray.microsecond/1000)
+   return timeStamp  
     
 def clock(func):
     def clocked(*args, **kwargs):
@@ -125,18 +124,23 @@ def start():
    global result,hd,urllist,hdlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('xb_sub_url',urllist)
-   watch('xb_sub_hd',hdlist)
+   watch('xb_main_hd',hdlist)
    for j in range(len(hdlist)):
        print(f'''C【{str(j+1)}】''')
        result+='['+str(len(hdlist))+'-'+str(j+1)+']'
        hd=eval(hdlist[j])
+       st=hd['traceid']
+       hd['traceid']=st.replace(st[20:33],str(tm13()))
        for k in range(len(urllist)):
          Av(urllist[k],hd,(k+1))
          time.sleep(1)
        result+='\n'
-   print(result)
    print('🏆🏆🏆🏆运行完毕')
    pushmsg('二库_XB',result)
+     
+     
+    
+   
      
 if __name__ == '__main__':
        start()
