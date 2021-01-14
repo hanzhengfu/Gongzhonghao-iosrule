@@ -22,11 +22,13 @@ btlist=[]
 
 
 
+
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
      response = requests.get(f'''{i}{key}''',headers=hd,timeout=10)
-
+     response.raise_for_status()
+     response.close()
      userRes=json.loads(response.text)
      hand(userRes,k)
    except Exception as e:
@@ -133,8 +135,9 @@ def start():
        hd['traceid']=st.replace(st[20:33],str(tm13()))
        for k in range(len(urllist)):
          Av(urllist[k],hd,(k+1))
-         time.sleep(1)
+         time.sleep(5)
        result+='\n'
+   #print(result)
    print('🏆🏆🏆🏆运行完毕')
    pushmsg('二库_XB',result)
      
