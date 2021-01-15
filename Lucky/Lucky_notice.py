@@ -30,6 +30,9 @@ uslist=[]
 datalist=[]
 redlist=[]
 wtlist=[]
+zero=0
+
+
 
 
 
@@ -53,6 +56,7 @@ def Av(i,hd,k,key=''):
 
 def hand(userRes,k):
    msg=''
+   global zero
    try:
      if k==1:
         if userRes['status']==0:
@@ -61,7 +65,12 @@ def hand(userRes,k):
            print(str(userRes['score']))
      elif k==2:
         print(str(userRes['time']/60))
-        loger('|'+str(int(userRes['time']/60))+'|')
+        zero+=1
+        if int(userRes['time']/60)<156 and zero<3:
+          Av(urllist[k-1],hd,(k),tmbody)
+        if zero==3:
+          zero=0
+          loger('|'+str(int(userRes['time']/60))+'|')
      elif k==3:
         if userRes['code']==0:
            print(userRes['msg'])
@@ -316,7 +325,7 @@ def start():
    hd=eval(hdlist[0])
    uslist=s(uslist)
    for loop in range(1):
-    for cc in range(4,8):
+    for cc in range(len(rflist)):
       hd['Referer']=rflist[cc]
       tmbody=tmbdlist[cc]
       wtbody=wtlist[cc]
@@ -344,8 +353,8 @@ def start():
           Av(urllist[k],hd,(k+1),datalist[cc])
         if k==4 or k==20:
           Av(urllist[k]+rflist[cc],hd,(k+1))
-      #time.sleep(10)
-   #time.sleep(10)
+      time.sleep(10)
+   time.sleep(10)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
