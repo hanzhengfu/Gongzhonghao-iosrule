@@ -148,8 +148,8 @@ def start():
       exit()
    for md in range(1,int(numlist[0])+1):
      tmplist=[]
-     print('L【'+str(md)+'】'+str(len(tmplist)))
      watch('lucky_md5_data'+str(md),tmplist)
+     print('L【'+str(md)+'】'+str(len(tmplist)))
      md5list.append(tmplist)
    if len(hdlist)<1:
       exit()
