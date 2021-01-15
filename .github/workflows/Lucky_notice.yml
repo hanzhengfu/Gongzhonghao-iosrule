@@ -33,3 +33,4 @@ jobs:
             lucky_red_bd: ${{ secrets.lucky_red_bd }}
             lucky_sg_rf: ${{ secrets.lucky_sg_rf }}
             lucky_data_bd: ${{ secrets.lucky_data_bd }}
+            lucky_wt_bd: ${{ secrets.lucky_wt_bd }}
