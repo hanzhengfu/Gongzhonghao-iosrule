@@ -17,6 +17,7 @@ djj_tele_cookie=''
 result=''
 body=''
 tmbody=''
+wtbody=''
 osenviron={}
 msg={}
 hd={}
@@ -28,12 +29,14 @@ rflist=[]
 uslist=[]
 datalist=[]
 redlist=[]
+wtlist=[]
+
 
 
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
-     if(k>0 and k<5) or (k>5 and k<20):
+     if(k>0 and k<5) or (k>5 and k<20) or k==22:
          response = requests.post(i,headers=hd,data=key,timeout=10)
          userRes=json.loads(response.text)
          #print(userRes)
@@ -184,6 +187,13 @@ def hand(userRes,k):
        print('success')
      elif k==21:
       msg=str(int(userRes['user']['score'])/10000)+'|'+str(int(int(userRes['user']['total_score'])/10000))+'|'+str(userRes['history'][0]['score']/10000)+'\n'
+      wt=int(userRes['user']['score'])/10000
+      print('wt:'+str(wt))
+      if wt>30:
+        if wtbody!='xx':
+          Av(urllist[k],hd,(k+1),wtbody)
+        else:
+           print('无数据')
       l=0
       for s in userRes['history']:
         l+=1
@@ -196,6 +206,8 @@ def hand(userRes,k):
           msg+=ss['money']+'|'
         msg+='\n'
       loger(msg)
+     elif k==22:
+       print(userRes['message'])
    except Exception as e:
       print(str(e))
       
@@ -287,7 +299,7 @@ def tm13():
     
 @clock
 def start():
-  global result,hd,body,tmbody,btlist,urllist,uslist,hdlist,tmbdlist,rflist,datalist,redlist
+  global result,hd,body,tmbody,wtbody,btlist,urllist,uslist,hdlist,tmbdlist,rflist,datalist,redlist,wtlist
   try:
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_com_url',urllist)
@@ -297,20 +309,21 @@ def start():
    watch('lucky_red_bd',redlist)
    watch('lucky_sg_rf',rflist)
    watch('lucky_data_bd',datalist)
+   watch('lucky_wt_bd',wtlist)
    if len(uslist)==0 or len(hdlist)==0:
       print('data is null.......')
       exit()
    hd=eval(hdlist[0])
    uslist=s(uslist)
-   for loop in range(6):
-    result=''
-    for cc in range(len(rflist)):
+   for loop in range(1):
+    for cc in range(4,8):
       hd['Referer']=rflist[cc]
       tmbody=tmbdlist[cc]
+      wtbody=wtlist[cc]
       print('账号'+str(cc+1))
       result+=str(cc+1)+'.'+uslist[cc]
       for k in range(len(urllist)):
-        if (k>4 and k<10) or k==13 or k==17:
+        if (k>4 and k<10) or k==13 or k==17 or k==21:
          continue
         if k==0:
           Av(urllist[k],hd,(k+1))
@@ -331,8 +344,8 @@ def start():
           Av(urllist[k],hd,(k+1),datalist[cc])
         if k==4 or k==20:
           Av(urllist[k]+rflist[cc],hd,(k+1))
-      time.sleep(10)
-   time.sleep(30)
+      #time.sleep(10)
+   #time.sleep(10)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
