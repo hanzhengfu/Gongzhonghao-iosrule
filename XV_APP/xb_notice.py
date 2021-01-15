@@ -19,18 +19,24 @@ msg=''
 urllist=[]
 hdlist=[]
 btlist=[]
-
+bdlist=[]
 
 
 
 def Av(i,hd,k,key=''):
-   print(str(k)+'=🔔='*k)
+   print('【'+str(k)+'】')
    try:
-     response = requests.get(f'''{i}{key}''',headers=hd,timeout=10)
-     response.raise_for_status()
-     response.close()
-     userRes=json.loads(response.text)
-     hand(userRes,k)
+      if k!=3:
+        response = requests.get(i,headers=hd,timeout=10)
+        response.raise_for_status()
+        response.close()
+        userRes=json.loads(response.text)
+      if k==3:
+         response = requests.post(i,headers=hd,data=key,timeout=10)
+         response.raise_for_status()
+         response.close()
+         userRes=json.loads(response.text)
+      hand(userRes,k)
    except Exception as e:
       print(str(e))
 
@@ -66,6 +72,8 @@ def hand(userRes,k):
          msg+=userRes['data']['customerInfo']['nickname'][0:2]+'|'
        if(k==2):
          msg+=str(userRes['data']['balanceSum']/100)+'|'+str(userRes['data']['coinSum'])
+       if(k==3):
+          print('wtok(1/2):::::'+str(userRes['data']['withdrawRes']))
    except Exception as e:
      msg+=str(e)
    loger(msg)
@@ -123,10 +131,11 @@ def clock(func):
     
 @clock
 def start():
-   global result,hd,urllist,hdlist
+   global result,hd,urllist,hdlist,bdlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('xb_sub_url',urllist)
    watch('xb_main_hd',hdlist)
+   watch('xb_sub_bd',bdlist)
    for j in range(len(hdlist)):
        print(f'''C【{str(j+1)}】''')
        result+='['+str(len(hdlist))+'-'+str(j+1)+']'
@@ -134,7 +143,10 @@ def start():
        st=hd['traceid']
        hd['traceid']=st.replace(st[20:33],str(tm13()))
        for k in range(len(urllist)):
-         Av(urllist[k],hd,(k+1))
+         if k!=2:
+             Av(urllist[k],hd,(k+1))
+         else:
+              Av(urllist[k],hd,(k+1),bdlist[0])
          time.sleep(5)
        result+='\n'
    #print(result)
