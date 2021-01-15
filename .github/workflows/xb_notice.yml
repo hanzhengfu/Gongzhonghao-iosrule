@@ -2,7 +2,7 @@ name: xb_notice
 
 on:
   schedule:
-    - cron: '*/35 * * * *'
+    - cron: '*/35 0-15 * * *'
   watch:
     types: [started]
 jobs:
@@ -28,3 +28,4 @@ jobs:
             DJJ_TELE_COOKIE: ${{ secrets.DJJ_TELE_COOKIE }}
             xb_sub_url: ${{ secrets.xb_sub_url }}
             xb_main_hd: ${{ secrets.xb_main_hd }}
+            xb_sub_bd: ${{ secrets.xb_sub_bd }}
