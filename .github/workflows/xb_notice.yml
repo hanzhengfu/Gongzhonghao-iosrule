@@ -27,4 +27,4 @@ jobs:
             DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
             DJJ_TELE_COOKIE: ${{ secrets.DJJ_TELE_COOKIE }}
             xb_sub_url: ${{ secrets.xb_sub_url }}
-            xb_main_hd: ${{ secrets.main_hd }}
+            xb_main_hd: ${{ secrets.xb_main_hd }}
