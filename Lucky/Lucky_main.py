@@ -92,6 +92,7 @@ def readdata(id):
         enddata.append(line+md5list[id-1][i])
         i+=1
    except Exception as e:
+      print('Data'+str(id)+'读取错误')
       enddata=['']
    return enddata
 
