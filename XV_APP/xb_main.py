@@ -153,7 +153,7 @@ def start():
       for i in range(1,len(urllist)-2):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(15):
+      for ac in range(20):
         watch('xb_main_hd',hdlist)
         for k in range(0,4):
           body1=json.loads(bdlist[0])
