@@ -1,4 +1,4 @@
-name: DASHABI
+name: DASHABI_SUB
 
 on:
   schedule:
