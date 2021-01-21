@@ -325,6 +325,7 @@ def start():
    hd=eval(hdlist[0])
    uslist=s(uslist)
    for loop in range(2):
+    result=''
     for cc in range(len(rflist)):
       hd['Referer']=rflist[cc]
       tmbody=tmbdlist[cc]
@@ -354,7 +355,7 @@ def start():
         if k==4 or k==20:
           Av(urllist[k]+rflist[cc],hd,(k+1))
       time.sleep(10)
-   time.sleep(10)
+    time.sleep(10)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
