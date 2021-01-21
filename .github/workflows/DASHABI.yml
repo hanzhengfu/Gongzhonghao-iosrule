@@ -1,0 +1,27 @@
+name: DASHABI
+
+on:
+  schedule:
+    - cron: '15 22,23,0-15/1 * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Car/requirements.txt 
+        
+      - name: '公众号iosrule' 
+        run: python3 ./Dashabi/dsb_sub.py
+        env:
+            dashabi_sub_url: ${{ secrets.dashabi_sub_url }}
+            dashabi_hd: ${{ secrets.dashabi_hd }}
