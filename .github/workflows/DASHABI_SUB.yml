@@ -23,5 +23,8 @@ jobs:
       - name: '公众号iosrule' 
         run: python3 ./Dashabi/dsb_sub.py
         env:
+            DJJ_BARK_COOKIE: ${{ secrets.DJJ_BARK_COOKIE }}
+            DJJ_SEVER_JIANG: ${{ secrets.DJJ_SEVER_JIANG }}
+            DJJ_TELE_COOKIE: ${{ secrets.DJJ_TELE_COOKIE }}
             dashabi_sub_url: ${{ secrets.dashabi_sub_url }}
             dashabi_hd: ${{ secrets.dashabi_hd }}
