@@ -21,10 +21,12 @@ btlist=[]
 bdlist=[]
 SB=''
 SP=0
-
+JD=0
 djj_bark_cookie=''
 djj_sever_jiang=''
 djj_tele_cookie=''
+
+
 
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
@@ -39,6 +41,8 @@ def Av(i,hd,k,key=''):
        key=bdlist[4]
      if k==19:
        key=bdlist[5]
+     if k==20:
+       key='taskid=2&'
      response =requests.post(i,headers=hd,data=key,timeout=10)
      userRes=json.loads(response.text)
      #print(userRes)
@@ -49,7 +53,7 @@ def Av(i,hd,k,key=''):
 
 
 def hand(userRes,k):
-  global SB,SP
+  global SB,SP,JD
   try:
    if k==1:
      for mm in userRes:
@@ -74,7 +78,10 @@ def hand(userRes,k):
           time.sleep(10) 
           Av(urllist[k-1],hd,k,SB)
    if k==4:
-       print('fb:'+userRes['msg'])
+       if not userRes['msg']:
+          print('fbs.....')
+       else:
+          print('fbf..')
    if k==5:
         print('card:'+str(userRes['ka']))
         if userRes['ka']==0:
@@ -96,7 +103,7 @@ def hand(userRes,k):
        
        if userRes['code']==1:
          print(f'''rd:{userRes['jinbi']}_{userRes['nonce_str']}''')
-         time.sleep(10)
+         time.sleep(15)
          Av(urllist[k],hd,k+1,'nonce_str='+userRes['nonce_str']+'&')
    if k==9:
       if userRes['code']==-1:
@@ -104,11 +111,14 @@ def hand(userRes,k):
       elif userRes['code']==1:
         print(f'''JB:{userRes['day_jinbi']}_{userRes['jinbi']}''')
         SP+=1
+        print('SP:'+str(SP))
         if SP<random.randint(10,20):
           Av(urllist[k-2],hd,k-1)
+           
+
    if k==10:
      if userRes['code']==1:
-       print('已转'+str(userRes['lucky_count'])+'次,剩余:'+str(userRes['lucky_num'])+'次,获得'+str(userRes['jinbi'])+'金币')
+       print('NUM:'+str(userRes['lucky_num'])+'_JB'+str(userRes['jinbi']))
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
        if userRes['lucky_num']>0:
           time.sleep(10)
@@ -132,56 +142,71 @@ def hand(userRes,k):
         Av(urllist[14],hd,15)
       if userRes['jindan_show']==0:
           Av(urllist[12],hd,13)
-      if userRes['hb_time']<=0:
+      
+      if userRes['hb_jinbi']!=0:
          Av(urllist[15],hd,16)
-      if userRes['right_jinbi']!='160':
+      if userRes['right_text']!='明天再领':
          Av(urllist[16],hd,17)
-      if userRes['right_jinbi']=='160':
+      if userRes['jinbi']==160:
          Av(urllist[17],hd,18)
          time.sleep(2)
          Av(urllist[18],hd,19)
+ 
    if k==13:
      if userRes['code']==-1:
        print(userRes['msg'])
      elif userRes['code']==1:
-      print('JDDD:'+str(userRes['code']))
+      print('JDDD:返回')
       bd='taskid='+str(userRes['taskid'])+'&clicktime=1611232580&donetime=1611232583&nonce_str='+userRes['nonce_str']+'&'
       Av(urllist[k],hd,k+1,bd)
+      
    if k==14:
      if userRes['code']==-1:
        print(userRes)
      elif userRes['code']==1:
-       print('JB'+str(userRes['jinbi']))
+       print('JDDD_'+str(userRes['jinbi']))
        time.sleep(5)
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
-       time.sleep(10)
-       print(urllist[k-2])
-       Av(urllist[k-2],hd,k-1)
+     JD+=1
+     print('JD:'+str(JD))
+     if JD<random.randint(10,20):
+        Av(urllist[12],hd,13)
+ 
+
    if k==15:
      if userRes['code']==-1:
-        print(userRes['msg']+'HB,completed......')
+       print(userRes['msg']+'HB,completed......')
+       Av(urllist[19],hd,20)
      elif userRes['code']==1:
        print(f'''{userRes['msg']},HB_JB:{userRes['jinbi']}''')
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
+       
+
    if k==16:
      if userRes['code']==-1:
         print(userRes['msg']+'RED:,completed......')
      elif userRes['code']==1:
        print('red:'+userRes['nonce_str'])
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
+ 
+   
    if k==17:
      if userRes['code']==-1:
         print(userRes['msg']+'homeJB1,completed......')
      elif userRes['code']==1:
-       print('homeJB1:'+userRes['jinbi']+','+userRes['msg'])
+       print('homeJB1:'+str(userRes['jinbi'])+','+userRes['msg'])
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
+
    if k==18:
       print(userRes)
    if k==19:
      if userRes['code']==-1:
         print(userRes['msg']+'homeJB2,completed......')
      elif userRes['code']==1:
-       print('homeJB2:'+userRes['jinbi']+','+userRes['msg'])
+       print('homeJB2:'+str(userRes['jinbi'])+','+userRes['msg'])
+   if k==20:
+      print(userRes)
+  
   except Exception as e:
       print(str(e))
 
@@ -223,6 +248,8 @@ def clock(func):
         return result
     return clocked
     
+
+
 @clock
 def start():
   global result,hd,bdlist,urllist,hdlist
