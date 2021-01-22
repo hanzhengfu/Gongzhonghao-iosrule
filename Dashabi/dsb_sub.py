@@ -27,13 +27,11 @@ djj_tele_cookie=''
 
 
 
-
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
      response =requests.post(i,headers=hd,data=key,timeout=10)
      userRes=json.loads(response.text)
-     #print(userRes)
      hand(userRes,k)
 
    except Exception as e:
@@ -47,7 +45,7 @@ def hand(userRes,k):
    if k==2:
       print(userRes['msg'])
    if k==3:
-     msg=f'''{userRes['username'][0:2]}|SD:{userRes['keep_day']}|{userRes['money']}|SP:{userRes['steps']}|JB:{userRes['jinbi']}-{userRes['leiji_jinbi']}'''
+     msg=f'''{userRes['username'][0:2]}|KP:{userRes['keep_day']}|{userRes['money']}|JB:{userRes['day_jinbi']}'''
      loger(msg)
    if k==4:
        Av(urllist[k],hd,k+1,'tx=0.3&')
@@ -145,7 +143,6 @@ def start():
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('dashabi_sub_url',urllist)
    watch('dashabi_hd',hdlist)
-   
    if len(urllist)==0 or len(hdlist)==0:
       print('data is null.......')
       exit()
