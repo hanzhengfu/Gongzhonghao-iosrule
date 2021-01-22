@@ -35,8 +35,6 @@ def Av(i,hd,k,key=''):
        key=bdlist[0]
      if k==8:
        key=bdlist[2]
-     if k==16:
-       key=bdlist[3]
      if k==18:
        key=bdlist[4]
      if k==19:
@@ -78,6 +76,7 @@ def hand(userRes,k):
           time.sleep(10) 
           Av(urllist[k-1],hd,k,SB)
    if k==4:
+       print(userRes)
        if not userRes['msg']:
           print('fbs.....')
        else:
@@ -114,11 +113,9 @@ def hand(userRes,k):
         print('SP:'+str(SP))
         if SP<random.randint(10,20):
           Av(urllist[k-2],hd,k-1)
-           
-
    if k==10:
      if userRes['code']==1:
-       print('NUM:'+str(userRes['lucky_num'])+'_JB'+str(userRes['jinbi']))
+       print('已转'+str(userRes['lucky_count'])+'次,剩余:'+str(userRes['lucky_num'])+'次,获得'+str(userRes['jinbi'])+'金币')
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
        if userRes['lucky_num']>0:
           time.sleep(10)
@@ -134,24 +131,26 @@ def hand(userRes,k):
       elif userRes['code']==1:
         Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
    if k==12:
-      print(userRes)
-      msg='Red:'+str(userRes['idx_hongbao_num'])+'|'
-      print(msg)
-      
+      #print(userRes)
       if userRes['steps_btn']!="明天再领":
         Av(urllist[14],hd,15)
       if userRes['jindan_show']==0:
           Av(urllist[12],hd,13)
       
       if userRes['hb_jinbi']!=0:
-         Av(urllist[15],hd,16)
-      if userRes['right_text']!='明天再领':
-         Av(urllist[16],hd,17)
-      if userRes['jinbi']==160:
+         Av(urllist[15],hd,16,bdlist[3])
+         time.sleep(2)
+         Av(urllist[15],hd,16,bdlist[6])
+         
+      if 'right_text' in userRes.keys():
+        if userRes['right_text']!='明天再领':
+              Av(urllist[16],hd,17)
+      else:
+             Av(urllist[16],hd,17)
+      if userRes['jinbi']!=0:
          Av(urllist[17],hd,18)
          time.sleep(2)
          Av(urllist[18],hd,19)
- 
    if k==13:
      if userRes['code']==-1:
        print(userRes['msg'])
@@ -159,7 +158,6 @@ def hand(userRes,k):
       print('JDDD:返回')
       bd='taskid='+str(userRes['taskid'])+'&clicktime=1611232580&donetime=1611232583&nonce_str='+userRes['nonce_str']+'&'
       Av(urllist[k],hd,k+1,bd)
-      
    if k==14:
      if userRes['code']==-1:
        print(userRes)
@@ -171,34 +169,32 @@ def hand(userRes,k):
      print('JD:'+str(JD))
      if JD<random.randint(10,20):
         Av(urllist[12],hd,13)
- 
-
    if k==15:
      if userRes['code']==-1:
-       print(userRes['msg']+'HB,completed......')
+       print(userRes['msg']+',HB,completed......')
+       time.sleep(5)
        Av(urllist[19],hd,20)
      elif userRes['code']==1:
        print(f'''{userRes['msg']},HB_JB:{userRes['jinbi']}''')
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
-       
-
    if k==16:
      if userRes['code']==-1:
         print(userRes['msg']+'RED:,completed......')
      elif userRes['code']==1:
        print('red:'+userRes['nonce_str'])
+       time.sleep(5)
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
- 
-   
    if k==17:
      if userRes['code']==-1:
         print(userRes['msg']+'homeJB1,completed......')
      elif userRes['code']==1:
        print('homeJB1:'+str(userRes['jinbi'])+','+userRes['msg'])
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
-
    if k==18:
-      print(userRes)
+      if userRes['code']==-1:
+        print('failure......')
+      elif userRes['code']==1:
+         print('success......')
    if k==19:
      if userRes['code']==-1:
         print(userRes['msg']+'homeJB2,completed......')
@@ -206,7 +202,17 @@ def hand(userRes,k):
        print('homeJB2:'+str(userRes['jinbi'])+','+userRes['msg'])
    if k==20:
       print(userRes)
-  
+   if k==21:
+      print('ad_____')
+      Av(urllist[k],hd,k+1,'ad_id='+str(userRes['ad_id'])+'&')
+   if k==22:
+      time.sleep(5)
+      Av(urllist[k],hd,k+1,'nonce_str='+userRes['nonce_str']+'&ad_id='+str(userRes['ad_id'])+'&')
+   if k==23:
+     if userRes['code']==-1:
+        print(userRes['msg']+'adjb..')
+     elif userRes['code']==1:
+        print('ad_jb:'+userRes['jinbi'])
   except Exception as e:
       print(str(e))
 
@@ -262,15 +268,16 @@ def start():
       print('data is null.......')
       exit()
    
-   for loop in range(1):
+   for loop in range(5):
     for c in range(len(hdlist)):
       hd=eval(hdlist[c])
       print('【'+str(loop+1)+'】C:'+str(c+1))
       for u in range(len(urllist)):
-        if u==0 or u==4 or u==7 or u==9 or u==11:
+        if u==0 or u==4 or u==7 or u==9 or u==11 or u==20:
           Av(urllist[u],hd,u+1)
         else:
           continue
+    time.sleep(30)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
