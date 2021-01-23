@@ -10,8 +10,6 @@ from datetime import datetime
 from dateutil import tz
 
 
-   
-   
 result=''
 osenviron={}
 hd={}
@@ -22,10 +20,6 @@ bdlist=[]
 SB=''
 SP=0
 JD=0
-djj_bark_cookie=''
-djj_sever_jiang=''
-djj_tele_cookie=''
-
 
 
 def Av(i,hd,k,key=''):
@@ -40,10 +34,11 @@ def Av(i,hd,k,key=''):
      if k==19:
        key=bdlist[5]
      if k==20:
-       key='taskid=2&'
+       key=bdlist[7]
+     if k==24:
+       key=bdlist[8]
      response =requests.post(i,headers=hd,data=key,timeout=10)
      userRes=json.loads(response.text)
-     #print(userRes)
      hand(userRes,k)
 
    except Exception as e:
@@ -101,7 +96,7 @@ def hand(userRes,k):
    if k==8:
        
        if userRes['code']==1:
-         print(f'''rd:{userRes['jinbi']}_{userRes['nonce_str']}''')
+         print(f'''rd:{userRes['jinbi']}''')
          time.sleep(15)
          Av(urllist[k],hd,k+1,'nonce_str='+userRes['nonce_str']+'&')
    if k==9:
@@ -115,7 +110,7 @@ def hand(userRes,k):
           Av(urllist[k-2],hd,k-1)
    if k==10:
      if userRes['code']==1:
-       print('已转'+str(userRes['lucky_count'])+'次,剩余:'+str(userRes['lucky_num'])+'次,获得'+str(userRes['jinbi'])+'金币')
+       print(str(userRes['lucky_num']))
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
        if userRes['lucky_num']>0:
           time.sleep(10)
@@ -131,7 +126,7 @@ def hand(userRes,k):
       elif userRes['code']==1:
         Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
    if k==12:
-      #print(userRes)
+      print(userRes)
       if userRes['steps_btn']!="明天再领":
         Av(urllist[14],hd,15)
       if userRes['jindan_show']==0:
@@ -144,7 +139,7 @@ def hand(userRes,k):
          
       if 'right_text' in userRes.keys():
         if userRes['right_text']!='明天再领':
-              Av(urllist[16],hd,17)
+            Av(urllist[16],hd,17)
       else:
              Av(urllist[16],hd,17)
       if userRes['jinbi']!=0:
@@ -169,13 +164,15 @@ def hand(userRes,k):
      print('JD:'+str(JD))
      if JD<random.randint(10,20):
         Av(urllist[12],hd,13)
+   
+   
    if k==15:
      if userRes['code']==-1:
        print(userRes['msg']+',HB,completed......')
        time.sleep(5)
        Av(urllist[19],hd,20)
      elif userRes['code']==1:
-       print(f'''{userRes['msg']},HB_JB:{userRes['jinbi']}''')
+       print(f'''{userRes['msg']},DH_JB:{userRes['jinbi']}''')
        Av(urllist[3],hd,4,bdlist[1]+userRes['nonce_str'])
    if k==16:
      if userRes['code']==-1:
@@ -213,6 +210,14 @@ def hand(userRes,k):
         print(userRes['msg']+'adjb..')
      elif userRes['code']==1:
         print('ad_jb:'+userRes['jinbi'])
+   if k==24:
+     if userRes['is_show']==1:
+        Av(urllist[k],hd,k+1)
+     else:
+       print('no cas')
+   if k==25:
+     print(userRes['msg'])
+     
   except Exception as e:
       print(str(e))
 
@@ -220,15 +225,6 @@ def hand(userRes,k):
 
 def watch(flag,list):
    vip=''
-   global djj_bark_cookie
-   global djj_sever_jiang
-   global djj_tele_cookie
-   if "DJJ_BARK_COOKIE" in os.environ:
-      djj_bark_cookie = os.environ["DJJ_BARK_COOKIE"]
-   if "DJJ_TELE_COOKIE" in os.environ:
-      djj_tele_cookie = os.environ["DJJ_TELE_COOKIE"]
-   if "DJJ_SEVER_JIANG" in os.environ:
-      djj_sever_jiang = os.environ["DJJ_SEVER_JIANG"]
    if flag in os.environ:
       vip = os.environ[flag]
    if flag in osenviron:
@@ -241,7 +237,7 @@ def watch(flag,list):
        return list
    else:
        print(f'''【{flag}】 is empty,DTask is over.''')
-      # exit()
+       exit()
 
 def clock(func):
     def clocked(*args, **kwargs):
@@ -273,7 +269,7 @@ def start():
       hd=eval(hdlist[c])
       print('【'+str(loop+1)+'】C:'+str(c+1))
       for u in range(len(urllist)):
-        if u==0 or u==4 or u==7 or u==9 or u==11 or u==20:
+        if u==0 or u==4 or u==7 or u==9 or u==11 or u==20 or u==23:
           Av(urllist[u],hd,u+1)
         else:
           continue
