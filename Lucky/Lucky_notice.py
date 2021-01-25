@@ -68,7 +68,7 @@ def hand(userRes,k):
         zero+=1
         if int(userRes['time']/60)<156 and zero<3:
           Av(urllist[k-1],hd,(k),tmbody)
-        if zero==3:
+        else:
           zero=0
           loger('|'+str(int(userRes['time']/60))+'|')
      elif k==3:
