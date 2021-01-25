@@ -1,4 +1,3 @@
-#const zqbcount=["红鲤鱼","小赵","帅德不不得","1581338","王德鹿","灏哥","iosrule","葛二蛋","花开","强哥","特靠谱yindangp"];
 import requests
 import os
 import json
