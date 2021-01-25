@@ -1,3 +1,4 @@
+#const zqbcount=["红鲤鱼","小赵","帅德不不得","1581338","王德鹿","灏哥","iosrule","葛二蛋","花开","强哥","特靠谱yindangp"];
 import requests
 import os
 import json
@@ -17,7 +18,7 @@ hd={}
 urllist=[]
 hdlist=[]
 keylist=[]
-
+artlist=[]
 
 
 
@@ -85,19 +86,30 @@ def clock(func):
         print('[🔔运行完毕用时%0.8fs] %s(%s) -> %r' % (elapsed, name, arg_str, result))
         return result
     return clocked
-    
+def s(st):
+   st=st[1:len(st)-1]
+   l=[]
+   for i in st.strip().split(','):
+      l.append(i[1:len(i)-1])
+   return l
 @clock
 def start():
-   global result,hd,urllist,keylist
+   global result,hd,urllist,keylist,artlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_sub_url',urllist)
    watch('lucky_com_hd',hdlist)
    watch('lucky_key_url',keylist)
+   watch('lucky_art_md5',artlist)
+  
+   
+   
    hd=eval(hdlist[0])
    for i in range(len(keylist)):
-     hd['Referer']=keylist[i]
-     Av(urllist[0]+addurl(),hd,i+1)
-     time.sleep(random.randint(20,60))
+      md5=s(artlist[i])
+      hd['Referer']=keylist[i].replace('xxx',random.choice(md5))
+      
+      Av(urllist[0]+addurl(),hd,i+1)
+      time.sleep(10)
    print('🏆🏆🏆🏆运行完毕')
  
     
