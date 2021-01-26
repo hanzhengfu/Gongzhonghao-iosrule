@@ -96,7 +96,7 @@ def start():
    global result,hd,urllist,keylist,artlist
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('lucky_sub_url',urllist)
-   watch('lucky_com_hd',hdlist)
+   watch('lucky_sub_hd',hdlist)
    watch('lucky_key_url',keylist)
    watch('lucky_art_md5',artlist)
   
