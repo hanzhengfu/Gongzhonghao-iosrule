@@ -24,6 +24,6 @@ jobs:
         run: python3 ./Lucky/Lucky_sub.py 
         env:
             lucky_sub_url: ${{ secrets.lucky_sub_url }}
-            lucky_com_hd: ${{ secrets.lucky_com_hd }}
+            lucky_sub_hd: ${{ secrets.lucky_sub_hd }}
             lucky_key_url: ${{ secrets.lucky_key_url }}
             lucky_art_md5: ${{ secrets.lucky_art_md5 }}
