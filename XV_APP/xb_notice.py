@@ -72,8 +72,8 @@ def hand(userRes,k):
          msg+=userRes['data']['customerInfo']['nickname'][0:2]+'|'
        if(k==2):
          msg+=str(userRes['data']['balanceSum']/100)+'|'+str(userRes['data']['coinSum'])
+         bd=eval(bdlist[0])
          if userRes['data']['coinSum']/10000>15:
-           bd=eval(bdlist[0])
            bd['amount']=1500
          Av(urllist[k],hd,(k+1),json.dumps(bd))
        if(k==3):
