@@ -72,6 +72,10 @@ def hand(userRes,k):
          msg+=userRes['data']['customerInfo']['nickname'][0:2]+'|'
        if(k==2):
          msg+=str(userRes['data']['balanceSum']/100)+'|'+str(userRes['data']['coinSum'])
+         if userRes['data']['coinSum']/10000>15:
+           bd=eval(bdlist[0])
+           bd['amount']=1500
+         Av(urllist[k],hd,(k+1),json.dumps(bd))
        if(k==3):
           print('wtok(1/2):::::'+str(userRes['data']['withdrawRes']))
    except Exception as e:
@@ -104,7 +108,6 @@ def pushmsg(title,txt,bflag=1,wflag=1,tflag=1):
       response = requests.post(purl,headers=headers,data=body)
     #print(response.text)
 def loger(m):
-   #print(m)
    global result
    result +=m     
 def getid(id):
@@ -145,13 +148,12 @@ def start():
        for k in range(len(urllist)):
          if k!=2:
              Av(urllist[k],hd,(k+1))
-         else:
-              Av(urllist[k],hd,(k+1),bdlist[0])
+         
+              
          time.sleep(5)
        result+='\n'
-   #print(result)
    print('🏆🏆🏆🏆运行完毕')
-   pushmsg('二库_XB',result)
+   pushmsg('二库_XB20210127周三',result)
      
      
     
