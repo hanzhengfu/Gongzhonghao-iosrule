@@ -27,6 +27,7 @@ djj_tele_cookie=''
 
 
 
+
 def Av(i,hd,k,key=''):
    print(str(k)+'=🔔='*k)
    try:
@@ -40,17 +41,30 @@ def Av(i,hd,k,key=''):
 
 def hand(userRes,k):
   try:
+   msg=''
    if k==1:
       print(f'''is_sign_day:{userRes['is_sign_day']}_sign_day:{userRes['sign_day']}''')
    if k==2:
-      print(userRes['msg'])
+      print('code:'+str(userRes['code']))
    if k==3:
      msg=f'''{userRes['username'][0:2]}|KP:{userRes['keep_day']}|{userRes['money']}|JB:{userRes['day_jinbi']}'''
+     
      loger(msg)
    if k==4:
-       Av(urllist[k],hd,k+1,'tx=0.3&')
-   if k==len(urllist):
-       print(userRes['msg'])
+       msg+='|sn:'+userRes['tixian_sign_day']
+       loger(msg)
+       bd='tx=0.3&'
+       for data in userRes['tixian_html']:
+         if (data['jine']=='50' and data['is_ok']==1):
+           bd='tx=50&'
+           Av(urllist[k],hd,k+1,bd)
+         if (data['jine']=='1' and data['is_ok']==1):
+           bd='tx=1&'
+           print('77777777')
+           Av(urllist[k],hd,k+1,bd)
+       Av(urllist[k],hd,k+1,bd)
+   if k==5:
+       print('code:'+str(userRes['code']))
   except Exception as e:
       print(str(e))
 
@@ -143,6 +157,7 @@ def start():
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    watch('dashabi_sub_url',urllist)
    watch('dashabi_hd',hdlist)
+   
    if len(urllist)==0 or len(hdlist)==0:
       print('data is null.......')
       exit()
@@ -150,12 +165,12 @@ def start():
       hd=eval(hdlist[c])
       result+=str(c+1)+'.'
       print('【C'+str(c+1)+'】')
-      for u in range(len(urllist)):
-          if u!=len(urllist)-1:
+      for u in range(len(urllist)-1):
             Av(urllist[u],hd,u+1)
       time.sleep(5)
       result+='\n'
-   pushmsg('二库-BB',result)
+   print(result)
+   pushmsg('二库-BB傻逼的app',result)
   except Exception as e:
       print(str(e))
   print('🏆🏆🏆🏆运行完毕')
