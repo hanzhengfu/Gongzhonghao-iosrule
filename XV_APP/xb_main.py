@@ -21,10 +21,7 @@ urllist=[]
 hdlist=[]
 bdlist=[]
 alllist=[]
-
-
-
-
+lvlist=[]
 
 
 
@@ -62,8 +59,8 @@ def hand(userRes,k):
        else:
           print(userRes['errorDesc'])
    except Exception as e:
-      print(str(e))
-      
+      #print(str(e))
+      pass
       
 
 def watch(flag,list):
@@ -137,6 +134,7 @@ def allinbd(alllist):
       body3['videoTime']=random.randint(20,60)
       
       body4['liveId']=random.choice(alllist)
+      print('go:'+body4['liveId'])
    except Exception as e:
       print(str(e))
       
@@ -148,32 +146,33 @@ def start():
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
    try:
       watch('xb_main_url',urllist)
+      watch('xb_main_hd',hdlist)
       watch('xb_main_bd',bdlist)
       allcode=[]
       for i in range(1,len(urllist)-2):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(20):
-        watch('xb_main_hd',hdlist)
-        for k in range(0,len(hdlist)):
+      for ac in range(30):
+        for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
           body4=json.loads(bdlist[2])
           hd=eval(hdlist[k])
           st=hd['traceid']
           hd['traceid']=st.replace(st[20:33],str(tm13()))
+          #print(alllist)
           if len(alllist)>10:
             allinbd(alllist)
           print('【C】'+str(k+1))
           Av(urllist[1]+body1['videoPublishId'],hd,(1))
           
-          time.sleep(random.randint(1,5))
+          #time.sleep(random.randint(1,5))
           Av(urllist[0],hd,(2),json.dumps(body2))
           print('await.............' )
-          time.sleep(random.randint(15,20))
+          time.sleep(random.randint(15,20)/len(hdlist))
           Av(urllist[len(urllist)-2],hd,(3),json.dumps(body3))
           Av(urllist[len(urllist)-1],hd,(4),json.dumps(body4))
-          time.sleep(random.randint(15,20))
+          time.sleep(random.randint(15,20)/len(hdlist))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
    except Exception as e:
