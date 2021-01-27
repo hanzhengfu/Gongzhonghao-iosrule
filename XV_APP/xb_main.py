@@ -155,7 +155,7 @@ def start():
       allinone(random.choice(allcode))
       for ac in range(20):
         watch('xb_main_hd',hdlist)
-        for k in range(0,4):
+        for k in range(0,len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
           body4=json.loads(bdlist[2])
