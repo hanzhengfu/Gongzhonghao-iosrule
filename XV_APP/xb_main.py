@@ -118,7 +118,7 @@ def allinone(i):
 def allinbd(alllist):
    global body1,body2,body3,body4
    try:
-      tf=[1,1,1,1,2]
+      tf=[1,1,2]
       body2['videoList'][0]['videoId']=random.choice(alllist)
       body2['videoList'][0]['type']=random.choice(tf)
       body2['videoList'][1]['videoId']=random.choice(alllist)
@@ -172,7 +172,7 @@ def start():
           time.sleep(random.randint(30,40)/len(hdlist))
           Av(urllist[len(urllist)-2],hd,(3),json.dumps(body3))
           Av(urllist[len(urllist)-1],hd,(4),json.dumps(body4))
-          time.sleep(random.randint(30,60)/len(hdlist))
+          time.sleep(random.randint(60,80)/len(hdlist))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
    except Exception as e:
