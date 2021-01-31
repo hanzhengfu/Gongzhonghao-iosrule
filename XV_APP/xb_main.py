@@ -151,7 +151,7 @@ def start():
       for i in range(1,len(urllist)-2):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(40):
+      for ac in range(25):
         watch('xb_main_hd',hdlist)
         for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
@@ -169,10 +169,10 @@ def start():
           #time.sleep(random.randint(1,5))
           Av(urllist[0],hd,(2),json.dumps(body2))
           print('await.............' )
-          time.sleep(random.randint(15,20)/len(hdlist))
+          time.sleep(random.randint(30,40)/len(hdlist))
           Av(urllist[len(urllist)-2],hd,(3),json.dumps(body3))
           Av(urllist[len(urllist)-1],hd,(4),json.dumps(body4))
-          time.sleep(random.randint(15,20)/len(hdlist))
+          time.sleep(random.randint(30,60)/len(hdlist))
         print('<<<<<<<'+str(ac+1)+'>>>>>>>>>')
    
    except Exception as e:
