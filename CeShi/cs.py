@@ -24,11 +24,6 @@ uslist=[]
 
 
 
-
-headers={'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1'}
-
-
-
 def loadbotmsg():
    try:
       global msglist
@@ -80,31 +75,36 @@ def bot_sendmsg(id,title,txt):
    except Exception as e:
       msg=str(e)
       print(msg)
-def bot_chat(id,msg):
+def bot_chat(title,ckmsg,postmsg):
    try:
-      if msg=='/help':
-        bot_sendmsg(id,'','1.新闻请发news;2.视频请发video')
+       num=0
+       for i in range(len(msglist)):
+        helpid=0
+        txttm=0
+        for j in range(len(msglist[i])):
+           if msglist[i][j]==ckmsg:
+             num+=1
+             txttm=msglist[i][j+1]
+        checktm=tm10()-txttm
+        print('服务器时间:'+str(tm10())+'-'+datetime.fromtimestamp(tm10()).strftime('%Y-%m-%d %H:%M:%S'))
+        print('TG时间:'+str(txttm)+'-'+datetime.fromtimestamp(txttm).strftime('%Y-%m-%d %H:%M:%S'))
+        print('服务器时间校准:'+str(checktm)+'秒')
+        
+        
+        if checktm<60 and txttm>0:
+          id=msglist[i][0]
+          bot_sendmsg(id,title,postmsg)
+          time.sleep(2)
    except Exception as e:
       msg=str(e)
       print(msg)
       
 def bot_check():
    try:
-      msg=['/help']
-      menu=['1.活动字母简写,水果(SG),年兽(NS)\n2.SGxxxxxxxxx@yyyyyyyyy@zzzzzzz\nNSzzzzzzzzz@ggggggggggghgh\n3.不同活动互助码用换行开始,格式不对机器人不提交',]
-      num=0
-      for i in range(len(msglist)):
-        helpid=0
-        txttm=0
-        for j in range(len(msglist[i])):
-           if msglist[i][j]==msg[0]:
-             num+=1
-             txttm=msglist[i][j+1]
-        checktm=tm10()-txttm
-        if checktm<60 and txttm>0:
-          id=msglist[i][0]
-          bot_sendmsg(id,'jd互助码格式:',menu[0])
-          time.sleep(2)
+      msg=['/help','/start']
+      menu=['1.活动字母简写,水果(SG),年兽(NS)\n2.SGxxxxxxxxx@yyyyyyyyy@zzzzzzz\nNSzzzzzzzzz@ggggggggggghgh\n3.不同活动互助码用换行开始,格式不对机器人不提交','机器人还不完善，功能开发测试中....']
+      bot_chat('帮助功能:',msg[0],menu[0])
+      bot_chat('开启功能:',msg[1],menu[1])
         
    except Exception as e:
       msg=str(e)
