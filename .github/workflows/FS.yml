@@ -5,7 +5,7 @@ name: FS
 on:
   push:
       branches:
-          - master
+          - main
   schedule:
     - cron: '*/15 * * * *'
   watch:
@@ -26,7 +26,7 @@ jobs:
         run: pip install -r ./Car/requirements.txt 
         
       - name: '公众号iosrule' 
-        run: python3 ./FS.py
+        run: python3 ./allcode/FS.py
 
       - name: Upload to this repo
         run: |
@@ -34,5 +34,4 @@ jobs:
           git config --global user.email "166909638@qq.com" 
           git add . 
           git commit -m 'upload 写入结果'  
-          git pull origin master
-          git push -u origin master
+          git push -u origin main
