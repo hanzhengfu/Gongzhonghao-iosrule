@@ -26,7 +26,7 @@ jobs:
         run: pip install -r ./Car/requirements.txt 
         
       - name: '公众号iosrule' 
-        run: python3 ./allcode/FS.py
+        run: python3 ./FS.py
 
       - name: Upload to this repo
         run: |
