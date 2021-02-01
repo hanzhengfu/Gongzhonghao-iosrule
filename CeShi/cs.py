@@ -85,13 +85,15 @@ def bot_chat(title,ckmsg,postmsg):
            if msglist[i][j]==ckmsg:
              num+=1
              txttm=msglist[i][j+1]
+        
         checktm=tm10()-txttm
+        
         if txttm>0:
           print('AC服务器时间:'+str(tm10())+'-'+datetime.fromtimestamp(tm10()).strftime('%Y-%m-%d %H:%M:%S'))
           print('TG时间:'+str(txttm)+'-'+datetime.fromtimestamp(txttm).strftime('%Y-%m-%d %H:%M:%S'))
           print('对话时间:'+str(checktm)+'秒')
           ll='TG时间:'+str(txttm)+'-'+datetime.fromtimestamp(txttm).strftime('%Y-%m-%d %H:%M:%S')
-          bot_sendmsg(1203377583,'tg心跳包测试:',ll)
+          bot_sendmsg(1203377583,'tg心跳包测试2:',ll)
        if checktm<60 and txttm>0:
           id=msglist[i][0]
           bot_sendmsg(id,title,postmsg)
@@ -105,7 +107,8 @@ def bot_check():
       msg=['/help','/start']
       menu=['1.活动字母简写,水果(SG),年兽(NS)\n2.SGxxxxxxxxx@yyyyyyyyy@zzzzzzz\nNSzzzzzzzzz@ggggggggggghgh\n3.不同活动互助码用换行开始,格式不对机器人不提交','机器人还不完善，功能开发测试中....']
       ll='AC服务器时间:'+str(tm10())+'-'+datetime.fromtimestamp(tm10()).strftime('%Y-%m-%d %H:%M:%S')
-      bot_sendmsg(1203377583,'tg心跳包测试:',ll)
+      bot_sendmsg(1203377583,'tg心跳包测试1:',ll)
+      bot_sendmsg(1203377583,'消息组:',msglist)
       bot_chat('帮助功能:',msg[0],menu[0])
       bot_chat('开启功能:',msg[1],menu[1])
         
