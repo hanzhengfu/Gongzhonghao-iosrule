@@ -29,7 +29,6 @@ jobs:
         run: python3 ./allcode/FS.py
 
       - name: Upload to this repo
-        run: |
-           git add . 
+        run: 
            git commit -m 'upload 写入结果'  
            git push -u origin master
