@@ -22,4 +22,3 @@ jobs:
         
       - name: '公众号iosrule' 
         run: python3 ./allcode/FS.py
-        env:
