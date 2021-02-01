@@ -1,5 +1,3 @@
-
-
 import requests
 import json
 import time
@@ -32,6 +30,7 @@ def loadbotmsg():
       msglist=[]
       res=requests.get(tg_bot_id,headers=headers,timeout=10).json()
       #print(res)
+      bot_sendmsg(1203377583,'tg心跳包测试0:',res)
       i=0
       for data in res['result']:
         i+=1
@@ -160,7 +159,7 @@ def all():
    loadbotmsg()
    bot_check()
    time.sleep(30)
-   all()
+   #all()
    print('💎',result)
   
    print('its over')
@@ -173,7 +172,8 @@ def all():
 def start():
    
    print('Localtime',datetime.now(tz=tz.gettz('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S", ))
-   all()
+   for i in range(30):
+     all()
 
 
 if __name__ == '__main__':
