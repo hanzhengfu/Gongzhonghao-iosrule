@@ -2,7 +2,7 @@ name: TG_CS
 
 on:
   schedule:
-    - cron: '*45 3-8 * * *'
+    - cron: '*/45 3-8 * * *'
   watch:
     types: [started]
 jobs:
