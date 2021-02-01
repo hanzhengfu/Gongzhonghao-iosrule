@@ -30,7 +30,7 @@ jobs:
 
       - name: Upload to this repo
         run: |
-          git config --global user.name "py写入json"
+          git config --global user.name "iosrule-hub"
           git config --global user.email "166909638@qq.com" 
           git add . 
           git commit -m 'upload 写入结果'  
