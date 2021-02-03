@@ -21,7 +21,7 @@ jobs:
         run: pip install -r ./Lucky/requirements.txt 
         
       - name: '公众号iosrule' 
-        run: python3 ./XV_APP/xb_main.py 
+        run: python3 ./XV_APP/沧海一声笑.py 
         env:
             xb_main_url: ${{ secrets.xb_main_url }}
             xb_main_hd: ${{ secrets.xb_main_hd }}
