@@ -22,9 +22,8 @@ hdlist=[]
 bdlist=[]
 alllist=[]
 lvlist=[]
-actId=''
-
-
+actId1=''
+actId2=''
 
 
 
@@ -46,7 +45,7 @@ def Av(i,hd,k,key=''):
 
 
 def hand(userRes,k):
-   global actId,livelist
+   global actId1,livelist,actId2
    msg=''
    try:
     if k==1:
@@ -63,7 +62,8 @@ def hand(userRes,k):
        else:
           print(userRes['errorDesc'])
     if k==len(urllist):
-          actId=userRes['data']['actId']
+          actId1=userRes['data']['everyDayActivityList'][0]['actId']
+          actId2=userRes['data']['everyDayActivityList'][1]['actId']
    except Exception as e:
       #print(str(e))
       pass
@@ -129,6 +129,7 @@ def liveId(i):
        liveIdList= userRes['data']['liveIdList']
        body4['liveId']=random.choice(liveIdList)
        print('llllliiiiddd:'+body4['liveId'])
+       body4['actId']=actId1
    except Exception as e:
       print(str(e))
 
@@ -141,8 +142,8 @@ def allinbd(alllist):
       body2['videoList'][0]['type']=random.choice(tf)
       body2['videoList'][1]['videoId']=random.choice(alllist)
       body2['videoList'][1]['type']=body2['videoList'][0]['type']
-      body2['actId']=actId
-      print(str(actId))
+      body2['actId']=actId2
+      print(str(actId1))
       body1['videoPublishId']=body2['videoList'][0]['videoId']
       body1['playTimeLenght']=random.randint(4,30)
       body1['videoTime']=random.randint(20,60)
@@ -169,8 +170,8 @@ def start():
       for i in range(2,len(urllist)-4):
         allcode.append(urllist[i])
       allinone(random.choice(allcode))
-      for ac in range(1):
-        for k in range(0,1):
+      for ac in range(100):
+        for k in range(len(hdlist)):
           body1=json.loads(bdlist[0])
           body2=json.loads(bdlist[1])
           body4=json.loads(bdlist[2])
