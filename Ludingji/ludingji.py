@@ -132,7 +132,7 @@ def start():
            time.sleep(2)
      time.sleep(10)
      print('💎【'+str(max)+'】=======🔔🔔🔔🔔')
-   pushmsg('ludingji',result)
+   pushmsg('ludingji-二库',result)
 if __name__ == '__main__':
        start()
     
