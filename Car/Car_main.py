@@ -126,7 +126,7 @@ def start():
          Av(urllist[k],hd,(k+1),btlist[k])
          time.sleep(random.randint(2,5))
      print('Rond【'+str(t)+'】💎'+'干就完了')
-   pushmsg('Car',result)
+   pushmsg('Car-二库',result)
 
 
 if __name__ == '__main__':
