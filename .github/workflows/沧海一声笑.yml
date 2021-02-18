@@ -2,7 +2,7 @@ name: 沧海一声笑
 
 on:
   schedule:
-    - cron: '*/45 23,0-11 * * *'
+    - cron: '*/40 23,0-16 * * *'
   watch:
     types: [started]
 jobs:
@@ -21,8 +21,8 @@ jobs:
         run: pip install -r ./Lucky/requirements.txt 
         
       - name: '公众号iosrule' 
-        run: python3 ./XV_APP/沧海一声笑.py 
+        run: python3 ./安装描述文件/玩玩看.py 
         env:
-            xb_main_url: ${{ secrets.xb_main_url }}
-            xb_main_hd: ${{ secrets.xb_main_hd }}
-            xb_main_bd: ${{ secrets.xb_main_bd }}
+            ASZ_666_url: ${{ secrets.ASZ_666_url }}
+            ASZ_666_hd: ${{ secrets.ASZ_666_hd }}
+            ASZ_666_bd: ${{ secrets.ASZ_666_bd }}
