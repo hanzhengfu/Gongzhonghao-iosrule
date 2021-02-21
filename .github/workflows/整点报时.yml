@@ -24,6 +24,6 @@ jobs:
       - name: '公众号iosrule' 
         run: python3 ./Dashabi/BWP.py
         env:
-            dashabi_main_url: ${{ secrets.dashabi_main_url }}
+            dashabi_sub_url: ${{ secrets.dashabi_sub_url }}
             dashabi_hd: ${{ secrets.dashabi_hd }}
             dashabi_bd: ${{ secrets.dashabi_bd }}
